@@ -1,8 +1,8 @@
-const IndexStore = {
+const store = {
   state: {
     counter: 0
-  }
-  incrementCounter() {
+  },
+  incrementCounter () {
     store.counterSet(store.state.counter + 1)
   }
 }
