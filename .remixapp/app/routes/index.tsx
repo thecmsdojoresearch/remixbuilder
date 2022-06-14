@@ -1,4 +1,11 @@
 export default function Index() {
+  ///store snippet
+  type IndexStore = {
+    state: any
+  }
+  const store:IndexStore = {
+    counter: 0
+  }
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>
