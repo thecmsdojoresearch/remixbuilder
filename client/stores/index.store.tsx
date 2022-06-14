@@ -1,4 +1,8 @@
-const store = {
+type IndexStore = {
+  state: any
+}
+
+const store:IndexStore = {
   state: {
     counter: 0
   },
