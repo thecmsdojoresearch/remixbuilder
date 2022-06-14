@@ -1,3 +1,4 @@
 [route."index"]
-controller = "index"
-template = true
+controller = "index" # the controller
+store = "index" # the client store
+has_template = true

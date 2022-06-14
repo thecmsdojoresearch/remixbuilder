@@ -1,3 +1,9 @@
+export const loader = async (request) => {
+  console.log("loading...");
+  return {
+  };
+};
+
 export default function Index() {
   ///store snippet
   type IndexStore = {
@@ -6,7 +12,17 @@ export default function Index() {
   const store:IndexStore = {
     counter: 0
   }
-  return (
+  ///view snippet
+
+  const block = {
+    remix_doc() {
+      return (
+        <h1>Remix Doc2</h1>
+      );
+    }
+  }
+
+  const view = (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>
       <ul>
@@ -30,10 +46,12 @@ export default function Index() {
         </li>
         <li>
           <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
+            {block.remix_doc()}
           </a>
         </li>
       </ul>
     </div>
   );
+
+  return view;
 }

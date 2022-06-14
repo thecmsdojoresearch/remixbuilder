@@ -1,0 +1,5 @@
+[config]
+has_store = true
+has_view = true
+imports = [
+]
