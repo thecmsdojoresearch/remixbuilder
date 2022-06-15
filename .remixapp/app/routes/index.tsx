@@ -18,14 +18,17 @@ class Route
     };
   }
 
+  /* this can be auto generated */
   public store() {
-    return new this.config.store;
+    const store = new this.config.store;
+    store._init();
+    return store;
   }
 
   public template({data, store}) {
     return (
       <div>
-        <h1>Version 1</h1>
+        <h1>Version 2</h1>
         <h1>Via Import</h1>
         <h1>This button has been clicked for {store.getCounter()} times in passing store</h1>
         <button onClick={()=> { store.incrementCounter() }}>Click</button>

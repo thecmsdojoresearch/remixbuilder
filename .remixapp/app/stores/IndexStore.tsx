@@ -8,11 +8,6 @@ export default class IndexStore extends BaseStore
     submittedMessage: ''
   }
 
-  public constructor() {
-    super();
-    this.init();
-  }
-
   public incrementCounter() {
     this.setCounter(this.state.counter + 1);
   }

@@ -4,7 +4,7 @@ export default class BaseStore
 {
   public state = {};
 
-  protected init() {
+  protected _init() {
     const stateKeys = Object.keys(this.state);
 
     stateKeys.forEach(keyName => {
