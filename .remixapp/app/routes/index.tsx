@@ -1,7 +1,11 @@
-
-
 class Route
 {
+  private config;
+
+  public constructor(config) {
+    this.config = config;
+  }
+
   public async loader() {
     return {
       a: 12
@@ -14,61 +18,54 @@ class Route
     };
   }
 
-  public template() {
+  public store() {
+    return new this.config.store;
+  }
+
+  public template({data, store}) {
+    return (
+      <div>
+        <h1>Version 1</h1>
+        <h1>Via Import</h1>
+        <h1>This button has been clicked for {store.getCounter()} times in passing store</h1>
+        <button onClick={()=> { store.incrementCounter() }}>Click</button>
+        <h1>{data.a}</h1>
+
+        <div>
+          <h4>Submitted Message: {store.getSubmittedMessage()}</h4>
+          <label>Add Message</label>
+          <input type = "text" 
+          value = {store.getMessage()} 
+            onChange = {(e) => {store.setMessage(e.target.value) }}
+          />
+          <button onClick={ ()=> {store.submitMessage()} }>Submit Message</button>
+        </div>
+      </div>
+    );
   }
 }
 
-import { useState } from 'react';
+////////// The following part can be auto-generated ///////////////
+import { useLoaderData } from "@remix-run/react";
+import { json } from "@remix-run/node"; 
+import IndexStore from '../stores/IndexStore';
 
-class BaseStore
-{
-  public state = {};
+const route = new Route({
+  store: IndexStore
+});
 
-  protected init() {
-    const stateKeys = Object.keys(this.state);
-
-    stateKeys.forEach(keyName => {
-      const initValue = this.state[keyName];
-      const stateResult = useState(initValue);
-
-      this.state[keyName] = stateResult[0];
-      const mutationSetterFunction = stateResult[1];
-      const mutationSetterName = "set" + keyName.charAt(0).toUpperCase() + keyName.slice(1);
-      const mutationGetterName = "get" + keyName.charAt(0).toUpperCase() + keyName.slice(1);
-      this[mutationSetterName] = mutationSetterFunction;
-      this[mutationGetterName] = () => {
-        return this.state[keyName]; 
-      }
-    });
-  }
+export const loader = async () => {
+  return route.loader();
 }
 
-class Store extends BaseStore
-{
-  public state = {
-    counter: 0
-  }
-
-  public constructor() {
-    super();
-    this.init();
-    console.log()
-  }
-
-  public incrementCounter() {
-    this.setCounter(this.state.counter + 1);
-  }
+export const action = async () => {
+  return route.action();
 }
 
 export default function Index() {
-  const store = new Store();
-
-  const template = (
-    <div>
-      <h1>Button has been clicked for {store.getCounter()} times</h1>
-      <button onClick={()=> { store.incrementCounter() }}>Click</button>
-    </div>
-  );
-
-  return template;
+  const store = route.store();
+  const data = useLoaderData();
+  if (route.template) {
+    return route.template({data, store});
+  } 
 }
