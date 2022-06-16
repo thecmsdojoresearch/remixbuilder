@@ -1,17 +1,22 @@
 import IndexStore from '../stores/IndexStore'; //auto generated
 import { useLoaderData } from "@remix-run/react";
+import { useEffect } from 'react';
 
 export default () => {
+  const data = useLoaderData();
   const store = new IndexStore; //auto generated
   store._init(); //auto generated
 
-  const data = useLoaderData(); //auto generated
+  useEffect(() => {
+    store.fetchCurrentIP();
+  });
 
   return (
     <div>
-      <h1>Version 4</h1>
+      <h1>Version 7</h1>
       <h1>Via Import</h1>
       <h1>This button has been clicked for {store.getCounter()} times in passing store</h1>
+      <h4>Current IP: {store.getIp()} </h4>
       <button onClick={()=> { store.incrementCounter() }}>Click</button>
       <h1>{data.a}</h1>
 

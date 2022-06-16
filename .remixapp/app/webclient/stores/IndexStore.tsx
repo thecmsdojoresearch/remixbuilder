@@ -5,7 +5,8 @@ export default class IndexStore extends BaseStore
   private state = {
     counter: 0,
     message: '',
-    submittedMessage: ''
+    submittedMessage: '',
+    ip: '',
   }
 
   public incrementCounter() {
@@ -18,5 +19,13 @@ export default class IndexStore extends BaseStore
       this.setSubmittedMessage(this.state.message);
     }
     this.setMessage("");
+  }
+
+  public fetchCurrentIP() {
+    (async () => {
+      const result = await fetch("https://api64.ipify.org?format=json");
+      const ipData = await result.json();
+      this.setIp(ipData.ip);
+    })();
   }
 }
