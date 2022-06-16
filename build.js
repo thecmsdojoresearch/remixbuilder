@@ -54,6 +54,7 @@ chokidar.watch('./app').on('all', (event, path) => {
       const pathBasename = basename(path);
       const targetRoutePath = `./.remixapp/app/routes/${pathBasename}.tsx`;
       console.log(`unlinking ${targetRoutePath}`);
+      fs.unlinkSync(targetRoutePath);
     }
   } else {
     startSync();
