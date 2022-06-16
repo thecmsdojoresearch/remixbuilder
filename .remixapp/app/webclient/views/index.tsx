@@ -1,4 +1,4 @@
-import IndexStore from '../stores/IndexStore'; //auto generated
+import IndexStore from '../stores/index'; //auto generated
 import { useLoaderData } from "@remix-run/react";
 import { useEffect } from 'react';
 
