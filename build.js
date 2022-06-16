@@ -29,22 +29,29 @@ const buildRoute = (path) => {
     targetRouteContentLines.push(`import Controller${requestMethod} from '../server/controllers/${routeConfig.request[requestMethod].controller}';`);
   });
 
+  //check if this is a resource route
+  if (routeConfig.is_resource === false) {
+    //automatically discover the related view file
+    targetRouteContentLines.push(`import View from '../webclient/views/${routeConfig.request.GET.controller}/${routeConfig.request.GET.action}';`);
+    targetRouteContentLines.push(`export default View;`);
+  }
+
   //now generate the loader and actions, if necessary
   Object.keys(routeConfig.request).forEach(requestMethod => {
     if (requestMethod === 'GET') {
       //we generate the loader
       targetRouteContentLines.push(`export const loader = async (context) => {`);
-      targetRouteContentLines.push(`  const controller = new Controller${requestMethod}();`);
-      targetRouteContentLines.push(`  controller._init(context);`);
-      targetRouteContentLines.push(`  return controller.${routeConfig.request[requestMethod].action}();`);
-      targetRouteContentLines.push(`}`);
+        targetRouteContentLines.push(`  const controller = new Controller${requestMethod}();`);
+        targetRouteContentLines.push(`  controller._init(context);`);
+        targetRouteContentLines.push(`  return controller.${routeConfig.request[requestMethod].action}();`);
+        targetRouteContentLines.push(`}`);
     } else {
       //we generate the action
       targetRouteContentLines.push(`export const action = async (context) => {`);
-      targetRouteContentLines.push(`  const controller = new Controller${requestMethod}();`);
-      targetRouteContentLines.push(`  controller._init(context);`);
-      targetRouteContentLines.push(`  return controller.${routeConfig.request[requestMethod].action}();`);
-      targetRouteContentLines.push(`}`);
+        targetRouteContentLines.push(`  const controller = new Controller${requestMethod}();`);
+        targetRouteContentLines.push(`  controller._init(context);`);
+        targetRouteContentLines.push(`  return controller.${routeConfig.request[requestMethod].action}();`);
+        targetRouteContentLines.push(`}`);
     }
   });
 
