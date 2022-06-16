@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/thecmsdojoresearch/remixbuilder#readme",
   "dependencies": {
+    "chokidar": "^3.5.3",
     "rsync": "^0.6.1",
     "toml": "^3.0.0",
     "typescript": "^4.7.3"

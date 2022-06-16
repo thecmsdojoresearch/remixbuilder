@@ -8,7 +8,7 @@ const startSync = () => {
   .set('delete')
   .set('progress')
   .flags('az')
-  .source('./libs')
+  .source('./app/libs')
   .destination('.remixapp/app');
 
   rsyncLibs.execute((error, code, cmd) => {
@@ -21,7 +21,7 @@ const startSync = () => {
   .set('delete')
   .set('progress')
   .flags('az')
-  .source('./server')
+  .source('./app/server')
   .destination('.remixapp/app');
 
   rsyncServer.execute((error, code, cmd) => {
@@ -34,7 +34,7 @@ const startSync = () => {
   .set('delete')
   .set('progress')
   .flags('az')
-  .source('./webclient')
+  .source('./app/webclient')
   .destination('.remixapp/app');
 
   rsyncWebclient.execute((error, code, cmd) => {
