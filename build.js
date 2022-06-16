@@ -3,15 +3,41 @@
  */
 const Rsync = require('rsync');
 
-const rsync = new Rsync()
+const rsyncLibs = new Rsync()
   .set('delete')
   .set('progress')
   .flags('az')
   .source('./libs')
   .destination('.remixapp/app');
 
-  rsync.execute((error, code, cmd) => {
+  rsyncLibs.execute((error, code, cmd) => {
     if (error === null) {
-      console.log("Build synchronized");
+      console.log("libs synchronized");
+    }
+  });
+
+const rsyncServer = new Rsync()
+  .set('delete')
+  .set('progress')
+  .flags('az')
+  .source('./server')
+  .destination('.remixapp/app');
+
+  rsyncServer.execute((error, code, cmd) => {
+    if (error === null) {
+      console.log("server synchronized");
+    }
+  });
+
+const rsyncWebclient = new Rsync()
+  .set('delete')
+  .set('progress')
+  .flags('az')
+  .source('./webclient')
+  .destination('.remixapp/app');
+
+  rsyncWebclient.execute((error, code, cmd) => {
+    if (error === null) {
+      console.log("webclient synchronized");
     }
   });
