@@ -7,17 +7,6 @@ const toml = require('toml');
 const fs = require('fs');
 const basename = require('basename');
 
-const buildTemplates = {
-  'export_default_view': '',
-  'export_loader_and_action': '',
-  'import_controller': '',
-  'import_view': ''
-};
-
-Object.keys(buildTemplates).forEach(key => {
-  buildTemplates[key] = fs.readFileSync(`./buildtemplates/${key}.tsx`).toString();
-});
-
 const buildRoute = (path) => {
   const tomlContent = fs.readFileSync(path).toString();
   const routeConfig = toml.parse(tomlContent);
