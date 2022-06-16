@@ -3,7 +3,8 @@
  */
 const Rsync = require('rsync');
 
-const rsyncLibs = new Rsync()
+const startSync = () => {
+  const rsyncLibs = new Rsync()
   .set('delete')
   .set('progress')
   .flags('az')
@@ -16,7 +17,7 @@ const rsyncLibs = new Rsync()
     }
   });
 
-const rsyncServer = new Rsync()
+  const rsyncServer = new Rsync()
   .set('delete')
   .set('progress')
   .flags('az')
@@ -29,7 +30,7 @@ const rsyncServer = new Rsync()
     }
   });
 
-const rsyncWebclient = new Rsync()
+  const rsyncWebclient = new Rsync()
   .set('delete')
   .set('progress')
   .flags('az')
@@ -41,3 +42,6 @@ const rsyncWebclient = new Rsync()
       console.log("webclient synchronized");
     }
   });
+};
+
+startSync();

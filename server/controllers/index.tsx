@@ -8,7 +8,7 @@ export default class IndexController extends BaseController
 {
   public handleGET() {
     const data = {
-      a: 1
+      a: 3
     }
    
     /*
