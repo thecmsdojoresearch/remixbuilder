@@ -2,9 +2,9 @@
 is_resource = true # whether this route is a resource route or not
 
 [request.GET]
-controller = "user"
+controller = "api/user"
 action = "list"
 
 [request.POST]
-controller = "user"
+controller = "api/user"
 action = "update"

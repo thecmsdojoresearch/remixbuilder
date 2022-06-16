@@ -1,13 +1,13 @@
-import BaseController from '../../libs/BaseController';
+import BaseController from '../../../libs/BaseController.tsx';
 
 export default class UserController extends BaseController
 {
   public list() {
     return [
-      {name: 'user1'},
-      {name: 'user2'},
-      {name: 'user3'},
-      {name: 'user4'},
+      {name: 'apiuser1'},
+      {name: 'apiuser2'},
+      {name: 'apiuser3'},
+      {name: 'apiuser4'},
     ]
   }
 
