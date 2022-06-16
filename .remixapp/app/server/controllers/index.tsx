@@ -8,7 +8,7 @@ export default class IndexController extends BaseController
 {
   public show() {
     const data = {
-      a: 22
+      a: 25
     }
    
     /*
@@ -24,6 +24,7 @@ export default class IndexController extends BaseController
   } 
 
   public handlePost() {
+    console.log("posting");
     const data = {
       b: 23
     }

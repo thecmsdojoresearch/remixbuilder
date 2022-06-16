@@ -33,6 +33,10 @@ export default () => {
         />
         <button onClick={ ()=> {store.submitMessage()} }>Submit Message</button>
       </div>
+      <button onClick={()=> { store.fetchWeatherForcast() }}>Check Weather Forcast</button>
+      <div>
+        {JSON.stringify(store.getWeatherInfo())}
+      </div>
     </div>
   );
 }

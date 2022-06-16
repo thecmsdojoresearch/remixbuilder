@@ -6,6 +6,7 @@ const chokidar = require('chokidar');
 const toml = require('toml');
 const fs = require('fs');
 const basename = require('basename');
+const pathutil = require('path');
 
 const buildRoute = (path) => {
   const tomlContent = fs.readFileSync(path).toString();
@@ -13,15 +14,18 @@ const buildRoute = (path) => {
   const targetRouteContentLines = [];
   const controllersToImport = [];
 
+  const relativeRoutePath = pathutil.dirname(path).replace('app/routes','');
+  const numOfDots = relativeRoutePath.split('/').length;
+  const dotPath = Array(numOfDots).fill('..').join('/');
   //find out how many controllers need to be imported
   Object.keys(routeConfig.request).forEach(requestMethod => {
-    targetRouteContentLines.push(`import Controller${requestMethod} from '../server/controllers/${routeConfig.request[requestMethod].controller}';`);
+    targetRouteContentLines.push(`import Controller${requestMethod} from '${dotPath}/server/controllers/${routeConfig.request[requestMethod].controller}';`);
   });
 
   //check if this is a resource route
   if (routeConfig.is_resource === false) {
     //automatically discover the related view file
-    targetRouteContentLines.push(`import View from '../webclient/views/${routeConfig.request.GET.controller}/${routeConfig.request.GET.action}';`);
+    targetRouteContentLines.push(`import View from '${dotPath}/webclient/views/${routeConfig.request.GET.controller}/${routeConfig.request.GET.action}';`);
     targetRouteContentLines.push(`export default View;`);
   }
 
@@ -45,15 +49,17 @@ const buildRoute = (path) => {
   });
 
   const targetRouteContent = targetRouteContentLines.join("\n");
-  const pathBasename = basename(path);
-  const targetRoutePath = `./.remixapp/app/routes/${pathBasename}.tsx`;
+  const targetRoutePath = `./.remixapp/${path.replace('.toml','.tsx')}`;
+  const targetRoutePathDir = pathutil.dirname(targetRoutePath);
   console.log(`generating route ${targetRoutePath}`);
+  if (!fs.existsSync(targetRoutePathDir)) {
+    fs.mkdirSync(targetRoutePathDir);
+  }
   fs.writeFileSync(targetRoutePath, targetRouteContent);
 };
 
 const removeRoute = (path) => {
-  const pathBasename = basename(path);
-  const targetRoutePath = `./.remixapp/app/routes/${pathBasename}.tsx`;
+  const targetRoutePath = `./.remixapp/app/routes/${path}.tsx`;
   console.log(`unlinking ${targetRoutePath}`);
   fs.unlinkSync(targetRoutePath);
 };

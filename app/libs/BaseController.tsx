@@ -10,27 +10,4 @@ export default class BaseController
     this.request = context.request;
     this.params = context.params;
   }
-
-  public handleGET() {
-  }
-
-  public handlePOST() {
-  }
-
-  public handlePUT() {
-  }
-
-  public handlePATCH() {
-  }
-
-  public handleDELETE() {
-  }
-
-  public _getView() {
-    return this.viewComponent;
-  }
-
-  protected renderView(viewComponent) {
-    this.viewComponent = viewComponent;
-  }
 }

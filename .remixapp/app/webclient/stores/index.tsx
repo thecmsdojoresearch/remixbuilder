@@ -7,6 +7,7 @@ export default class IndexStore extends BaseStore
     message: '',
     submittedMessage: '',
     ip: '',
+    weatherInfo: {}
   }
 
   public incrementCounter() {
@@ -26,6 +27,14 @@ export default class IndexStore extends BaseStore
       const result = await fetch("https://api64.ipify.org?format=json");
       const ipData = await result.json();
       this.setIp(ipData.ip);
+    })();
+  }
+
+   public fetchWeatherForcast() {
+    (async () => {
+      const result = await fetch("http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=astro&output=json");
+      const jsonData = await result.json();
+      this.setWeatherInfo(jsonData);
     })();
   }
 }

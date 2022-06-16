@@ -1,0 +1,10 @@
+# include controller and action
+is_resource = true # whether this route is a resource route or not
+
+[request.GET]
+controller = "user"
+action = "list"
+
+[request.POST]
+controller = "user"
+action = "update"
