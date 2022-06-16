@@ -6,7 +6,7 @@ import View from '../../webclient/views/index';
 
 export default class IndexController extends BaseController
 {
-  public handleGET() {
+  public show() {
     const data = {
       a: 22
     }
@@ -23,9 +23,11 @@ export default class IndexController extends BaseController
     return data;
   } 
 
-  public handlePOST() {
-    return {
-      b: 2
+  public handlePost() {
+    const data = {
+      b: 23
     }
+
+    return data;
   }
 }

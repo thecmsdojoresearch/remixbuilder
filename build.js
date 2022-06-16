@@ -18,43 +18,56 @@ Object.keys(buildTemplates).forEach(key => {
   buildTemplates[key] = fs.readFileSync(`./buildtemplates/${key}.tsx`).toString();
 });
 
+const buildRoute = (path) => {
+  const tomlContent = fs.readFileSync(path).toString();
+  const routeConfig = toml.parse(tomlContent);
+  const targetRouteContentLines = [];
+  const controllersToImport = [];
+
+  //find out how many controllers need to be imported
+  Object.keys(routeConfig.request).forEach(requestMethod => {
+    targetRouteContentLines.push(`import Controller${requestMethod} from '../server/controllers/${routeConfig.request[requestMethod].controller}';`);
+  });
+
+  //now generate the loader and actions, if necessary
+  Object.keys(routeConfig.request).forEach(requestMethod => {
+    if (requestMethod === 'GET') {
+      //we generate the loader
+      targetRouteContentLines.push(`export const loader = async (context) => {`);
+      targetRouteContentLines.push(`  const controller = new Controller${requestMethod}();`);
+      targetRouteContentLines.push(`  controller._init(context);`);
+      targetRouteContentLines.push(`  return controller.${routeConfig.request[requestMethod].action}();`);
+      targetRouteContentLines.push(`}`);
+    } else {
+      //we generate the action
+      targetRouteContentLines.push(`export const action = async (context) => {`);
+      targetRouteContentLines.push(`  const controller = new Controller${requestMethod}();`);
+      targetRouteContentLines.push(`  controller._init(context);`);
+      targetRouteContentLines.push(`  return controller.${routeConfig.request[requestMethod].action}();`);
+      targetRouteContentLines.push(`}`);
+    }
+  });
+
+  const targetRouteContent = targetRouteContentLines.join("\n");
+  const pathBasename = basename(path);
+  const targetRoutePath = `./.remixapp/app/routes/${pathBasename}.tsx`;
+  console.log(`generating route ${targetRoutePath}`);
+  fs.writeFileSync(targetRoutePath, targetRouteContent);
+};
+
+const removeRoute = (path) => {
+  const pathBasename = basename(path);
+  const targetRoutePath = `./.remixapp/app/routes/${pathBasename}.tsx`;
+  console.log(`unlinking ${targetRoutePath}`);
+  fs.unlinkSync(targetRoutePath);
+};
+
 chokidar.watch('./app').on('all', (event, path) => {
   if (path.includes('.toml') && path.includes('app/routes')) {
-    console.log(event);
     if (event == "add" || event == "change") {
-      const tomlContent = fs.readFileSync(path).toString();
-      const routeConfig = toml.parse(tomlContent);
-      const pathBasename = basename(path);
-      const targetRoutePath = `./.remixapp/app/routes/${pathBasename}.tsx`;
-      console.log(`generating route ${targetRoutePath}`);
-      if (routeConfig.view === true) {
-        const targetRouteContent = [
-          'import_view',
-          'import_controller',
-          'export_loader_and_action',
-          'export_default_view'
-        ]
-        .map(templateKey => buildTemplates[templateKey])
-        .join("\n")
-        .replace("{route_path}",pathBasename);
-
-        fs.writeFileSync(targetRoutePath, targetRouteContent);
-      } else {
-        const targetRouteContent = [
-          'import_controller',
-          'export_loader_and_action'
-        ]
-        .map(templateKey => buildTemplates[templateKey])
-        .join("\n")
-        .replace("{route_path}",pathBasename);
-
-        fs.writeFileSync(targetRoutePath, targetRouteContent);
-      }
+      buildRoute(path);
     } else if (event == "unlink") {
-      const pathBasename = basename(path);
-      const targetRoutePath = `./.remixapp/app/routes/${pathBasename}.tsx`;
-      console.log(`unlinking ${targetRoutePath}`);
-      fs.unlinkSync(targetRoutePath);
+      removeRoute(path);
     }
   } else {
     startSync();

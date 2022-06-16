@@ -1,17 +1,12 @@
-import view from '../webclient/views/index';
-
-import Controller from '../server/controllers/index';
-
-const controller = new Controller();
-
+import ControllerGET from '../server/controllers/index';
+import ControllerPOST from '../server/controllers/index';
 export const loader = async (context) => {
+  const controller = new ControllerGET();
   controller._init(context);
-  return controller[`handle${context.request.method}`]()
+  return controller.show();
 }
-
 export const action = async (context) => {
+  const controller = new ControllerPOST();
   controller._init(context);
-  return controller[`handle${context.request.method}`]();
+  return controller.handlePost();
 }
-
-export default view;
