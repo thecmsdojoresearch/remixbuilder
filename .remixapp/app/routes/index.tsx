@@ -1,60 +1,22 @@
-class Route
-{
-  public async loader() {
-    return {
-      a: 12
-    };
-  }
-
-  public async action() {
-    return {
-      a: 12
-    };
-  }
-}
-
 ////////// The following part can be auto-generated ///////////////
-import { useLoaderData } from "@remix-run/react";
-import { json } from "@remix-run/node"; 
-import IndexStore from '../stores/IndexStore'; //auto generated
+// we can simply have config like 
+// {
+//  controller: ../server/controllers/IndexController
+//  view: ../webclient/views/index
+// }
+import Controller from '../server/controllers/IndexController';
+import view from '../webclient/views/index';
 
-const route = new Route();
+const controller = new Controller();
 
-export const loader = async () => {
-  return route.loader();
+export const loader = async (context) => {
+  controller._init(context);
+  return controller[`handle${context.request.method}`]();
 }
 
-export const action = async () => {
-  return route.action();
+export const action = async (context) => {
+  controller._init(context);
+  return controller[`handle${context.request.method}`]();
 }
 
-export default () => {
-  const store = new IndexStore; //auto generated
-  store._init(); //auto generated
-
-  const data = useLoaderData(); //auto generated
-
-  return (
-    <div>
-      <h1>Version 4</h1>
-      <h1>Via Import</h1>
-      <h1>This button has been clicked for {store.getCounter()} times in passing store</h1>
-      <button onClick={()=> { store.incrementCounter() }}>Click</button>
-      <h1>{data.a}</h1>
-
-      <div>
-        {(() => {
-          if (store.getSubmittedMessage().length > 0) {
-            return <h4>Submitted Message: {store.getSubmittedMessage()}</h4> 
-          }
-        })()}
-        <label>Add Message</label>
-        <input type = "text" 
-          value = {store.getMessage()} 
-          onChange = {(e) => {store.setMessage(e.target.value) }}
-        />
-        <button onClick={ ()=> {store.submitMessage()} }>Submit Message</button>
-      </div>
-    </div>
-  );
-}
+export default view;
