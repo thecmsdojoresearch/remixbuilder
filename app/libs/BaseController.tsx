@@ -1,5 +1,3 @@
-import { renderToString } from "react-dom/server";
-
 export default class BaseController
 {
   protected request;

@@ -1,7 +1,3 @@
-import Controller from '../server/controllers/index';
-
-const controller = new Controller();
-
 export const loader = async (context) => {
   controller._init(context);
   return controller[`handle${context.request.method}`]()

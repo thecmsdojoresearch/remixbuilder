@@ -16,7 +16,7 @@ export default () => {
       <h1>Version 8</h1>
       <h1>Via Import</h1>
       <h1>This button has been clicked for {store.getCounter()} times in passing store</h1>
-      <h4>Current IP: {store.getIp()} </h4>
+      <h4>Current IP Address: {store.getIp()} </h4>
       <button onClick={()=> { store.incrementCounter() }}>Click</button>
       <h1>{data.a}</h1>
 
