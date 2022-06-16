@@ -20,6 +20,7 @@ Object.keys(buildTemplates).forEach(key => {
 
 chokidar.watch('./app').on('all', (event, path) => {
   if (path.includes('.toml') && path.includes('app/routes')) {
+    console.log(event);
     if (event == "add" || event == "change") {
       const tomlContent = fs.readFileSync(path).toString();
       const routeConfig = toml.parse(tomlContent);
@@ -48,11 +49,15 @@ chokidar.watch('./app').on('all', (event, path) => {
         .replace("{route_path}",pathBasename);
 
         fs.writeFileSync(targetRoutePath, targetRouteContent);
-
       }
+    } else if (event == "unlink") {
+      const pathBasename = basename(path);
+      const targetRoutePath = `./.remixapp/app/routes/${pathBasename}.tsx`;
+      console.log(`unlinking ${targetRoutePath}`);
     }
+  } else {
+    startSync();
   }
-  //startSync();
 });
 
 const startSync = () => {
