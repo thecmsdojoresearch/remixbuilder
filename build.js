@@ -7,6 +7,7 @@ const toml = require('toml');
 const fs = require('fs');
 const basename = require('basename');
 const pathutil = require('path');
+const { exec } = require('child_process');
 
 const buildRoute = (path) => {
   const tomlContent = fs.readFileSync(path).toString();
@@ -116,3 +117,18 @@ const startSync = () => {
     }
   });
 };
+
+const remixServerProcess = exec('npm run dev', {cwd: './.remixapp'});
+
+remixServerProcess.on('exit', function (code, signal) {
+  console.log('child process exited with ' +
+              `code ${code} and signal ${signal}`);
+});
+
+remixServerProcess.stdout.on('data', (data) => {
+  console.log(`child stdout:\n${data}`);
+});
+
+remixServerProcess.stderr.on('data', (data) => {
+  console.error(`child stderr:\n${data}`);
+});

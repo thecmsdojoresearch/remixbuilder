@@ -8,13 +8,14 @@ export default class UserController extends BaseController
       {name: 'apiuser2'},
       {name: 'apiuser3'},
       {name: 'apiuser4'},
+      {name: 'apiuser5'},
     ]
   }
 
   public update() {
     return [
-      {name: 'updated_user1'},
-      {name: 'updated_user2'},
+      {name: 'updated_api_user1'},
+      {name: 'updated_api_user2'},
       {name: 'updated_user3'},
       {name: 'updated_user4'},
     ]
