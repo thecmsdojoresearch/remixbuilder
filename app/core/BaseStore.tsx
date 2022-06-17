@@ -35,6 +35,11 @@ export default class BaseStore
     return this;
   }
 
+  public _populateState(state = {}) {
+    this.state = state;
+    return this;
+  }
+
   public async fetchJSON(url: string, method: string = 'GET', data: object = {}) {
     const payload = {
       method,
