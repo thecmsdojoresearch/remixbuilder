@@ -1,15 +1,10 @@
 import IndexStore from '../../stores/index'; //auto generated
 import { useLoaderData } from "@remix-run/react";
-import { useEffect } from 'react';
 
 export default () => {
   const data = useLoaderData();
   const store = new IndexStore; 
   store._init(); 
-
-  useEffect(() => {
-    store.fetchCurrentIP();
-  });
 
   return (
     <div>

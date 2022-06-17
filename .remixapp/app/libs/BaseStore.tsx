@@ -1,10 +1,15 @@
+/**
+ * with the BaseStore, we abstract out useState and useEffect
+ */
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 export default class BaseStore
 {
   public state = {};
 
   protected _init() {
+    /// initialize getter and setter ////
     const stateKeys = Object.keys(this.state);
 
     stateKeys.forEach(keyName => {
@@ -20,5 +25,13 @@ export default class BaseStore
         return this.state[keyName]; 
       }
     });
+
+    /// initiate onload //////////////
+    useEffect( () => {
+      this.onload();
+    }); 
+  }
+
+  public onload() {
   }
 }
