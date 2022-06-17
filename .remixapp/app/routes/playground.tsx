@@ -1,6 +1,9 @@
 class Route extends CoreRoute
 {
-  private state = {
+  /**
+   * the store will automatically bind to the state
+   */
+  protected state = {
     counter: 0,
     message: '',
     submittedMessage: '',
@@ -17,7 +20,7 @@ class Route extends CoreRoute
   public async action({ request, params }) {
   }
 
-  public view(data, store) {
+  public view({data, store}) {
     store.incrementCounter = () => {
       store.setCounter(this.state.counter + 1);
     }
@@ -50,39 +53,41 @@ class Route extends CoreRoute
 
     return (
       <div>
-        <h1>Version 8</h1>
+        <h1>Version 9</h1>
         <h1>Via Import</h1>
-        <h1>This button has been clicked for {store.getCounter()} times in passing store</h1>
-        <h4>Current IP Address: {store.getIp()} </h4>
+        <h1>This button has been clicked for {this.state.counter} times in passing store</h1>
+        <h4>Your Current IP Address: {this.state.ip} </h4>
         <button onClick={()=> { store.incrementCounter() }}>Click</button>
         <h1>{data.a}</h1>
 
         <div>
           {(() => {
-            if (store.getSubmittedMessage().length > 0) {
-              return <h4>Submitted Message: {store.getSubmittedMessage()}</h4> 
+            if (this.state.submittedMessage.length > 0) {
+              return <h4>Submitted Message: {this.state.submittedMessage}</h4> 
             }
           })()}
           <label>Add Message</label>
           <input type = "text" 
-            value = {store.getMessage()} 
+            value = {this.state.message} 
             onChange = {(e) => {store.setMessage(e.target.value) }}
           />
           <button onClick={ ()=> {store.submitMessage()} }>Submit Message</button>
         </div>
         <button onClick={()=> { store.fetchWeatherForcast() }}>Check Weather Forcast</button>
+        <div>Weather Forcast Data</div>
         <div>
-          {JSON.stringify(store.getWeatherInfo())}
+          {JSON.stringify(this.state.weatherInfo)}
         </div>
       </div>
     );
   }
 }
 
-///// The following will be auto generated /////
+
+///// The following is generated /////
 import { useLoaderData } from "@remix-run/react";
+import BaseStore from "~/core/BaseStore";
 import CoreRoute from "~/core/Route";
-import BaseStore from "~/core/BaseStore"; 
 
 const route = new Route();
 
@@ -98,5 +103,5 @@ export async function action(context) {
 export default (typeof route.view === 'function') ? () => {
   const data = useLoaderData();
   const store = new BaseStore()._populateState(route.getState())._init();
-  return route.view(data, store); 
+  return route.view({data, store});
 } : null

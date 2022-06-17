@@ -1,5 +1,7 @@
 /**
  * the main file to start the build process
+ *
+ * each route can be either an MVC route or an FSR (full stack route)
  */
 
 process.chdir(__dirname);
@@ -12,7 +14,38 @@ const basename = require('basename');
 const pathutil = require('path');
 const { exec, execSync } = require('child_process');
 
-const buildRoute = (path) => {
+const FSRAutoTemplate = `
+///// The following is generated /////
+import { useLoaderData } from "@remix-run/react";
+import BaseStore from "~/core/BaseStore";
+import CoreRoute from "~/core/Route";
+
+const route = new Route();
+
+export async function loader(context) {
+  return route.loader(context);
+}
+
+export async function action(context) {
+  return route.action(context);
+}
+
+//super trick to do on demand view export
+export default (typeof route.view === 'function') ? () => {
+  const data = useLoaderData();
+  const store = new BaseStore()._populateState(route.getState())._init();
+  return route.view({data, store});
+} : null
+`;
+
+const buildFSRoute = (path) => {
+  const targetRouteContent = fs.readFileSync(path).toString() + "\n" + FSRAutoTemplate;
+  const targetRoutePath = `./.remixapp/${path}`;
+  console.log(`generating route ${targetRoutePath}`);
+  fs.writeFileSync(targetRoutePath, targetRouteContent);
+}
+
+const buildMVCRoute = (path) => {
   const tomlContent = fs.readFileSync(path).toString();
   const routeConfig = toml.parse(tomlContent);
   const targetRouteContentLines = [];
@@ -69,9 +102,16 @@ const removeRoute = (path) => {
 };
 
 chokidar.watch('./app').on('all', (event, path) => {
-  if (path.includes('.toml') && path.includes('app/routes')) {
+  const pathExtension = pathutil.extname(path);
+  if (pathExtension == '.toml' && path.includes('app/routes')) {
     if (event == "add" || event == "change") {
-      buildRoute(path);
+      buildMVCRoute(path);
+    } else if (event == "unlink") {
+      removeRoute(path);
+    }
+  } else if (pathExtension == '.tsx' && path.includes('app/routes')) {
+    if (event == "add" || event == "change") {
+      buildFSRoute(path);
     } else if (event == "unlink") {
       removeRoute(path);
     }

@@ -1,6 +1,11 @@
 export default class Route
 {
-  protected state = {};
+  protected data = {};
+  protected state = {}; //the client state
+
+  public getData() {
+    return this.data;
+  }
 
   public getState() {
     return this.state;
@@ -13,5 +18,4 @@ export default class Route
   public async action({ request, params }) {
     return {};
   }
-
 }

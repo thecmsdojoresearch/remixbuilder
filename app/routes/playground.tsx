@@ -1,7 +1,8 @@
-import CoreRoute from "~/core/Route";
-
 class Route extends CoreRoute
 {
+  /**
+   * the store will automatically bind to the state
+   */
   protected state = {
     counter: 0,
     message: '',
@@ -52,52 +53,32 @@ class Route extends CoreRoute
 
     return (
       <div>
-        <h1>Version 8</h1>
+        <h1>Version 9</h1>
         <h1>Via Import</h1>
-        <h1>This button has been clicked for {store.getCounter()} times in passing store</h1>
-        <h4>Current IP Address: {store.getIp()} </h4>
+        <h1>This button has been clicked for {this.state.counter} times in passing store</h1>
+        <h4>Your Current IP Address: {this.state.ip} </h4>
         <button onClick={()=> { store.incrementCounter() }}>Click</button>
         <h1>{data.a}</h1>
 
         <div>
           {(() => {
-            if (store.getSubmittedMessage().length > 0) {
-              return <h4>Submitted Message: {store.getSubmittedMessage()}</h4> 
+            if (this.state.submittedMessage.length > 0) {
+              return <h4>Submitted Message: {this.state.submittedMessage}</h4> 
             }
           })()}
           <label>Add Message</label>
           <input type = "text" 
-            value = {store.getMessage()} 
+            value = {this.state.message} 
             onChange = {(e) => {store.setMessage(e.target.value) }}
           />
           <button onClick={ ()=> {store.submitMessage()} }>Submit Message</button>
         </div>
         <button onClick={()=> { store.fetchWeatherForcast() }}>Check Weather Forcast</button>
+        <div>Weather Forcast Data</div>
         <div>
-          {JSON.stringify(store.getWeatherInfo())}
+          {JSON.stringify(this.state.weatherInfo)}
         </div>
       </div>
     );
   }
 }
-
-///// The following is generated /////
-import { useLoaderData } from "@remix-run/react";
-import BaseStore from "~/core/BaseStore"; 
-
-const route = new Route();
-
-export async function loader(context) {
-  return route.loader(context);
-}
-
-export async function action(context) {
-  return route.action(context);
-}
-
-//super trick to do on demand view export
-export default (typeof route.view === 'function') ? () => {
-  const data = useLoaderData();
-  const store = new BaseStore()._populateState(route.getState())._init();
-  return route.view({data, store}); 
-} : null
