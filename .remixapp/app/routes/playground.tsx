@@ -1,5 +1,7 @@
 class Route extends CoreRoute
 {
+  private type = "page"; //this can be either page or resource
+
   private state = {
     counter: 0,
     message: '',
@@ -18,6 +20,36 @@ class Route extends CoreRoute
   }
 
   public view(data, store) {
+    store.incrementCounter = () => {
+      store.setCounter(this.state.counter + 1);
+    }
+
+    store.submitMessage = () => {
+      if (this.state.message.length > 0) {
+        console.log(`submit ${this.state.message}`);
+        store.setSubmittedMessage(this.state.message);
+      }
+      store.setMessage("");
+    }
+
+    store.fetchCurrentIP = () => {
+      (async () => {
+        const jsonData = await store.fetchJSON("https://api64.ipify.org?format=json");
+        store.setIp(jsonData.ip);
+      })();
+    }
+
+    store.fetchWeatherForcast = () => {
+      (async () => {
+        const jsonData = await store.fetchJSON("http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=astro&output=json");
+        store.setWeatherInfo(jsonData);
+      })();
+    }
+
+    store.onload = () => {
+      store.fetchCurrentIP();
+    }
+
     return (
       <div>
         <h1>Version 8</h1>
@@ -64,8 +96,13 @@ export async function action(context) {
   return route.action(context);
 }
 
+//we can do this trick!!! so that we do not export a view, the route then becomes a resource route!!!
+export default null;
+
+/*
 export default () => {
   const data = useLoaderData();
   const store = new BaseStore()._populateState(route.getState())._init();
   return route.view(data, store);
 }
+*/
