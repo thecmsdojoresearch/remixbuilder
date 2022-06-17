@@ -32,6 +32,12 @@ export default class BaseStore
     }); 
   }
 
+  public async fetchJSON(url: string) {
+    const result = await fetch(url);
+    const jsonData = await result.json();
+    return jsonData;
+  }
+
   public onload() {
   }
 }

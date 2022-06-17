@@ -24,16 +24,14 @@ export default class IndexStore extends BaseStore
 
   public fetchCurrentIP() {
     (async () => {
-      const result = await fetch("https://api64.ipify.org?format=json");
-      const ipData = await result.json();
-      this.setIp(ipData.ip);
+      const jsonData = await this.fetchJSON("https://api64.ipify.org?format=json");
+      this.setIp(jsonData.ip);
     })();
   }
 
   public fetchWeatherForcast() {
     (async () => {
-      const result = await fetch("http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=astro&output=json");
-      const jsonData = await result.json();
+      const jsonData = await this.fetchJSON("http://www.7timer.info/bin/api.pl?lon=113.17&lat=23.09&product=astro&output=json");
       this.setWeatherInfo(jsonData);
     })();
   }
