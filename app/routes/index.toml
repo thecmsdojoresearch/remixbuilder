@@ -1,5 +1,5 @@
-# include controller and action
-is_resource = false # whether this route is a resource route or not
+[route]
+type = "page" # possible value, page or resource
 
 [request.GET]
 controller = "index"

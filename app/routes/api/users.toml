@@ -1,5 +1,6 @@
 # include controller and action
-is_resource = true # whether this route is a resource route or not
+[route]
+type = "resource" # reference: https://remix.run/docs/en/v1/guides/resource-routes
 
 [request.GET]
 controller = "api/user"

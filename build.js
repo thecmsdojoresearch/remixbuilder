@@ -23,8 +23,8 @@ const buildRoute = (path) => {
     targetRouteContentLines.push(`import Controller${requestMethod} from '${dotPath}/server/controllers/${routeConfig.request[requestMethod].controller}';`);
   });
 
-  //check if this is a resource route
-  if (routeConfig.is_resource === false) {
+  //check if this is a page route, export the default view component
+  if (routeConfig.route.type === "page") {
     //automatically discover the related view file
     targetRouteContentLines.push(`import View from '${dotPath}/webclient/views/${routeConfig.request.GET.controller}/${routeConfig.request.GET.action}';`);
     targetRouteContentLines.push(`export default View;`);
