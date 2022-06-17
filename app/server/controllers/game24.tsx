@@ -11,7 +11,9 @@ export default class Game24Controller extends BaseController
   } 
 
   public getAnswer() {
-    return {
-    }
+    return [
+      [1,2,3,4],
+      [3,3,7,7],
+    ];
   }
 }
