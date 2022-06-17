@@ -10,7 +10,7 @@ const toml = require('toml');
 const fs = require('fs');
 const basename = require('basename');
 const pathutil = require('path');
-const { exec } = require('child_process');
+const { exec, execSync } = require('child_process');
 
 const buildRoute = (path) => {
   const tomlContent = fs.readFileSync(path).toString();
@@ -57,7 +57,7 @@ const buildRoute = (path) => {
   const targetRoutePathDir = pathutil.dirname(targetRoutePath);
   console.log(`generating route ${targetRoutePath}`);
   if (!fs.existsSync(targetRoutePathDir)) {
-    fs.mkdirSync(targetRoutePathDir);
+    execSync(`mkdir -p ${targetRoutePathDir}`);
   }
   fs.writeFileSync(targetRoutePath, targetRouteContent);
 };

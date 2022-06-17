@@ -10,4 +10,8 @@ export default class Game24Controller extends BaseController
     return data;
   } 
 
+  public getAnswer() {
+    return {
+    }
+  }
 }
