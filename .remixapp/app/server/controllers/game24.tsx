@@ -10,14 +10,21 @@ export default class Game24Controller extends BaseController
     return data;
   } 
 
-  public getAnswer() {
+  public async getAnswer() {
     const answers = [
       [1,2,3,4],
       [3,3,7,7],
     ];
 
-    const params = this.params
+    const payload = await this.request.json();
 
-    return { answers }
+    const numbers = [
+      payload.number1,
+      payload.number2,
+      payload.number3,
+      payload.number4
+    ];
+
+    return { numbers, answers }
   }
 }

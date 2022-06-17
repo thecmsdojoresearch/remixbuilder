@@ -13,6 +13,13 @@ export default class G24Store extends BaseStore
   public onload() {
   }
 
+  public clearAllNumbers() {
+    this.setNumber1('');
+    this.setNumber2('');
+    this.setNumber3('');
+    this.setNumber4('');
+  }
+
   public showAnswer() {
     (async() => {
       const result = await this.fetchJSON('/api/game/24/answer', 'POST', {
@@ -23,6 +30,7 @@ export default class G24Store extends BaseStore
       });
 
       this.setAnswers(result.data.answers);
+      //this.clearAllNumbers();
     })();
   }
 }
