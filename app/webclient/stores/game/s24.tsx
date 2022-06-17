@@ -1,6 +1,6 @@
-import BaseStore from '../../core/BaseStore';
+import BaseStore from '../../../core/BaseStore';
 
-export default class IndexStore extends BaseStore
+export default class S24Store extends BaseStore
 {
   private state = {
     counter: 0,

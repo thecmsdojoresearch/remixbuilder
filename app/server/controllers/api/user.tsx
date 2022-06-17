@@ -1,4 +1,4 @@
-import BaseController from '../../../libs/BaseController.tsx';
+import BaseController from '../../../core/BaseController.tsx';
 
 export default class UserController extends BaseController
 {

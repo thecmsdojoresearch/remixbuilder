@@ -81,6 +81,18 @@ chokidar.watch('./app').on('all', (event, path) => {
 });
 
 const startSync = () => {
+  const rsyncCore = new Rsync()
+  .set('delete')
+  .set('progress')
+  .flags('az')
+  .source('./app/core')
+  .destination('.remixapp/app');
+
+  rsyncCore.execute((error, code, cmd) => {
+    if (error === null) {
+      console.log("core synchronized");
+    }
+  });
   const rsyncLibs = new Rsync()
   .set('delete')
   .set('progress')
