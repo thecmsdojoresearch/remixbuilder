@@ -22,13 +22,13 @@ class Route extends CoreRoute
 
   public view({data, store}) {
     store.incrementCounter = () => {
-      store.setCounter(this.state.counter + 1);
+      store.setCounter(state.counter + 1);
     }
 
     store.submitMessage = () => {
-      if (this.state.message.length > 0) {
-        console.log(`submit ${this.state.message}`);
-        store.setSubmittedMessage(this.state.message);
+      if (state.message.length > 0) {
+        console.log(`submit ${state.message}`);
+        store.setSubmittedMessage(state.message);
       }
       store.setMessage("");
     }
@@ -50,25 +50,32 @@ class Route extends CoreRoute
     store.onload = () => {
       store.fetchCurrentIP();
     }
+    
+    //@TODO, maybe this can be further auto generated outside of the route class
+    const state = this.state;
+    return this.template({data, store, state});
+  }
 
+  //@TODO, maybe this can be further auto generated outside of the route class
+  public template({data, store, state}) {
     return (
       <div>
-        <h1>Version 9</h1>
+        <h1>Version 10</h1>
         <h1>Via Import</h1>
-        <h1>This button has been clicked for {this.state.counter} times in passing store</h1>
-        <h4>Your Current IP Address: {this.state.ip} </h4>
+        <h1>This button has been clicked for {state.counter} times in passing store</h1>
+        <h4>Your Current IP Address: {state.ip} </h4>
         <button onClick={()=> { store.incrementCounter() }}>Click</button>
         <h1>{data.a}</h1>
 
         <div>
           {(() => {
-            if (this.state.submittedMessage.length > 0) {
-              return <h4>Submitted Message: {this.state.submittedMessage}</h4> 
+            if (state.submittedMessage.length > 0) {
+              return <h4>Submitted Message: {state.submittedMessage}</h4> 
             }
           })()}
           <label>Add Message</label>
           <input type = "text" 
-            value = {this.state.message} 
+            value = {state.message} 
             onChange = {(e) => {store.setMessage(e.target.value) }}
           />
           <button onClick={ ()=> {store.submitMessage()} }>Submit Message</button>
@@ -76,7 +83,7 @@ class Route extends CoreRoute
         <button onClick={()=> { store.fetchWeatherForcast() }}>Check Weather Forcast</button>
         <div>Weather Forcast Data</div>
         <div>
-          {JSON.stringify(this.state.weatherInfo)}
+          {JSON.stringify(state.weatherInfo)}
         </div>
       </div>
     );
