@@ -36,12 +36,29 @@ export default (typeof route.view === 'function') ? () => {
   const store = new BaseStore()._populateState(route.getState())._init();
   const state = route.getState();
   route.view({data, store, state});
+  {RouteTemplate}
   return route.template({data, store, state});
 } : null
 `;
 
 const buildFSRoute = (path) => {
-  const targetRouteContent = fs.readFileSync(path).toString() + "\n" + FSRAutoTemplate;
+  //smart search for the corresponding html template in the current directory
+  let currentRouteContent = fs.readFileSync(path).toString();
+  currentRouteContent = currentRouteContent + "\n" + FSRAutoTemplate;
+  const possibleHTMLTemplateFile = path.replace(".tsx",".html");
+  console.log(possibleHTMLTemplateFile);
+  if (fs.existsSync(possibleHTMLTemplateFile)) {
+    currentRouteContent = currentRouteContent.replace(
+      '{RouteTemplate}',`
+      route.template = ({data, store, state}) => {
+        return (
+      ${fs.readFileSync(possibleHTMLTemplateFile).toString()}
+        );
+      }`);
+  } else {
+    currentRouteContent = currentRouteContent.replace('{RouteTemplate}','');
+  }
+  const targetRouteContent = currentRouteContent;
   const targetRoutePath = `./.remixapp/${path}`;
   console.log(`generating route ${targetRoutePath}`);
   fs.writeFileSync(targetRoutePath, targetRouteContent);

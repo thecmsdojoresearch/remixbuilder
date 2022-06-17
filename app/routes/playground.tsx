@@ -51,37 +51,4 @@ class Route extends CoreRoute
       store.fetchCurrentIP();
     }
   }
-
-  //@TODO, maybe this can be further auto generated outside of the route class
-  public template({data, store, state}) {
-    return (
-      <div>
-        <h1>Version 188</h1>
-        <h1>Via Import</h1>
-        <h1>This button has been clicked for {state.counter} times in passing store</h1>
-        <h4>Your Current IP Address: {state.ip} </h4>
-        <button onClick={()=> { store.incrementCounter() }}>Click</button>
-        <h1>{data.a}</h1>
-
-        <div>
-          {(() => {
-            if (state.submittedMessage.length > 0) {
-              return <h4>Submitted Message: {state.submittedMessage}</h4> 
-            }
-          })()}
-          <label>Add Message</label>
-          <input type = "text" 
-            value = {state.message} 
-            onChange = {(e) => {store.setMessage(e.target.value) }}
-          />
-          <button onClick={ ()=> {store.submitMessage()} }>Submit Message</button>
-        </div>
-        <button onClick={()=> { store.fetchWeatherForcast() }}>Check Weather Forcast</button>
-        <div>Weather Forcast Data</div>
-        <div>
-          {JSON.stringify(state.weatherInfo)}
-        </div>
-      </div>
-    );
-  }
 }
