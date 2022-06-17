@@ -1,6 +1,9 @@
 /**
  * the main file to start the build process
  */
+
+process.chdir(__dirname);
+
 const Rsync = require('rsync');
 const chokidar = require('chokidar');
 const toml = require('toml');
