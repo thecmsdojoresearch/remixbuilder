@@ -19,7 +19,7 @@ class Route extends CoreRoute
   public async action({ request, params }) {
   }
 
-  public view(data, store) {
+  public view({data, store}) {
     store.incrementCounter = () => {
       store.setCounter(this.state.counter + 1);
     }
@@ -99,5 +99,5 @@ export async function action(context) {
 export default (typeof route.view === 'function') ? () => {
   const data = useLoaderData();
   const store = new BaseStore()._populateState(route.getState())._init();
-  return route.view(data, store); 
+  return route.view({data, store}); 
 } : null
