@@ -1,4 +1,4 @@
-import BaseController from '../../core/BaseController';
+import BaseController from '~/core/BaseController';
 
 export default class Game24Controller extends BaseController
 {

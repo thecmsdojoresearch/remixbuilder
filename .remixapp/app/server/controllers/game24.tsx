@@ -1,4 +1,4 @@
-import BaseController from '../../core/BaseController';
+import BaseController from '~/core/BaseController';
 
 export default class Game24Controller extends BaseController
 {
@@ -16,6 +16,7 @@ export default class Game24Controller extends BaseController
       [3,3,7,7],
     ];
 
+    //get the request payload
     const payload = await this.request.json();
 
     const numbers = [

@@ -46,7 +46,7 @@ export default class BaseStore
     }
 
     const jsonData = await axios(payload);
-    return jsonData;
+    return jsonData.data;
   }
 
   public onload() {

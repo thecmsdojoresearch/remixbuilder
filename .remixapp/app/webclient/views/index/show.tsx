@@ -1,4 +1,4 @@
-import IndexStore from '../../stores/index'; //auto generated
+import IndexStore from '~/webclient/stores/index'; //auto generated
 import { useLoaderData } from "@remix-run/react";
 
 export default () => {

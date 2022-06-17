@@ -1,8 +1,8 @@
 import { Route } from "react-router-dom";
-import BaseController from '../../core/BaseController';
+import BaseController from '~/core/BaseController';
 import { renderToString } from "react-dom/server";
 import { RemixServer } from "@remix-run/react";
-import View from '../../webclient/views/index';
+import View from '~/webclient/views/index';
 
 export default class IndexController extends BaseController
 {

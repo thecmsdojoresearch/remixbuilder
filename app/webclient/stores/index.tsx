@@ -1,4 +1,4 @@
-import BaseStore from '../../core/BaseStore';
+import BaseStore from '~/core/BaseStore';
 
 export default class IndexStore extends BaseStore
 {

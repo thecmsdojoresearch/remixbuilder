@@ -1,4 +1,4 @@
-import BaseController from '../../core/BaseController';
+import BaseController from '~/core/BaseController';
 import { renderToString } from "react-dom/server";
 
 export default class ComponenhtController extends BaseController

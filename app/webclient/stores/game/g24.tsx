@@ -1,4 +1,4 @@
-import BaseStore from '../../../core/BaseStore';
+import BaseStore from '~/core/BaseStore';
 
 export default class G24Store extends BaseStore
 {

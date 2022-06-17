@@ -1,5 +1,5 @@
 import { useLoaderData } from "@remix-run/react";
-import G24Store from '../../stores/game/g24'; //auto generated
+import G24Store from '~/webclient/stores/game/g24'; //auto generated
 
 export default () => {
   const data = useLoaderData();
