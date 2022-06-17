@@ -1,7 +1,5 @@
 class Route extends CoreRoute
 {
-  private type = "page"; //this can be either page or resource
-
   private state = {
     counter: 0,
     message: '',

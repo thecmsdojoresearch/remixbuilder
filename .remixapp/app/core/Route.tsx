@@ -1,5 +1,7 @@
 export default class Route
 {
+  protected state = {};
+
   public getState() {
     return this.state;
   }

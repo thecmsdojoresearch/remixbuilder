@@ -1,6 +1,6 @@
 class Route extends CoreRoute
 {
-  private state = {
+  protected state = {
     counter: 0,
     message: '',
     submittedMessage: '',
@@ -79,7 +79,7 @@ class Route extends CoreRoute
   }
 }
 
-///// The following will be auto generated /////
+///// The following is generated /////
 import { useLoaderData } from "@remix-run/react";
 import CoreRoute from "~/core/Route";
 import BaseStore from "~/core/BaseStore"; 
