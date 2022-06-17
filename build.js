@@ -118,17 +118,17 @@ const startSync = () => {
   });
 };
 
-const remixServerProcess = exec('npm run dev', {cwd: './.remixapp'});
+const remixDevServerProcess = exec('npm run dev', {cwd: './.remixapp'});
 
-remixServerProcess.on('exit', function (code, signal) {
+remixDevServerProcess.on('exit', function (code, signal) {
   console.log('child process exited with ' +
               `code ${code} and signal ${signal}`);
 });
 
-remixServerProcess.stdout.on('data', (data) => {
+remixDevServerProcess.stdout.on('data', (data) => {
   console.log(`child stdout:\n${data}`);
 });
 
-remixServerProcess.stderr.on('data', (data) => {
+remixDevServerProcess.stderr.on('data', (data) => {
   console.error(`child stderr:\n${data}`);
 });
