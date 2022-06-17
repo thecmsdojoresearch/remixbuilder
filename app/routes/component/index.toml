@@ -1,0 +1,6 @@
+[route]
+type = "resource" # reference: https://remix.run/docs/en/v1/guides/resource-routes
+
+[request.GET]
+controller = "component"
+action = "view"
