@@ -31,6 +31,9 @@ export default () => {
         <div>
           <button onClick = {() => store.showAnswer() }>Show me the answer</button>
         </div>
+        <div>
+          {JSON.stringify(store.getAnswers())}
+        </div>
       </div>
     </div>
   );

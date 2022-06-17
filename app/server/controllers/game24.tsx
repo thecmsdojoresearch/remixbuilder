@@ -11,9 +11,13 @@ export default class Game24Controller extends BaseController
   } 
 
   public getAnswer() {
-    return [
+    const answers = [
       [1,2,3,4],
       [3,3,7,7],
     ];
+
+    const params = this.params
+
+    return { answers }
   }
 }

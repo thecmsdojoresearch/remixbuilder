@@ -3,6 +3,7 @@
  */
 import { useState } from 'react';
 import { useEffect } from 'react';
+const axios = require('axios');
 
 export default class BaseStore
 {
@@ -30,11 +31,21 @@ export default class BaseStore
     useEffect( () => {
       this.onload();
     }); 
+
+    return this;
   }
 
-  public async fetchJSON(url: string) {
-    const result = await fetch(url);
-    const jsonData = await result.json();
+  public async fetchJSON(url: string, method: string = 'GET', data: object = {}) {
+    const payload = {
+      method,
+      url
+    };
+
+    if (method != 'GET') {
+      payload.data = data;
+    }
+
+    const jsonData = await axios(payload);
     return jsonData;
   }
 
