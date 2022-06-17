@@ -1,3 +1,5 @@
+import CoreRoute from "~/core/Route";
+
 class Route extends CoreRoute
 {
   protected state = {
@@ -81,7 +83,6 @@ class Route extends CoreRoute
 
 ///// The following is generated /////
 import { useLoaderData } from "@remix-run/react";
-import CoreRoute from "~/core/Route";
 import BaseStore from "~/core/BaseStore"; 
 
 const route = new Route();
