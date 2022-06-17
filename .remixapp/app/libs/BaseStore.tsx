@@ -6,9 +6,9 @@ import { useEffect } from 'react';
 
 export default class BaseStore
 {
-  public state = {};
+  private state = {};
 
-  protected _init() {
+  public _init() {
     /// initialize getter and setter ////
     const stateKeys = Object.keys(this.state);
 
