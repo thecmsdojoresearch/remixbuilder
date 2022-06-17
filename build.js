@@ -34,7 +34,9 @@ export async function action(context) {
 export default (typeof route.view === 'function') ? () => {
   const data = useLoaderData();
   const store = new BaseStore()._populateState(route.getState())._init();
-  return route.view({data, store});
+  const state = route.getState();
+  route.view({data, store, state});
+  return route.template({data, store, state});
 } : null
 `;
 

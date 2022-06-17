@@ -50,17 +50,13 @@ class Route extends CoreRoute
     store.onload = () => {
       store.fetchCurrentIP();
     }
-    
-    //@TODO, maybe this can be further auto generated outside of the route class
-    const state = this.state;
-    return this.template({data, store, state});
   }
 
   //@TODO, maybe this can be further auto generated outside of the route class
   public template({data, store, state}) {
     return (
       <div>
-        <h1>Version 10</h1>
+        <h1>Version 15</h1>
         <h1>Via Import</h1>
         <h1>This button has been clicked for {state.counter} times in passing store</h1>
         <h4>Your Current IP Address: {state.ip} </h4>
