@@ -20,7 +20,7 @@ class Route extends CoreRoute
   public async action({ request, params }) {
   }
 
-  public view({data, store}) {
+  public view({data, store, state}) {
     store.incrementCounter = () => {
       store.setCounter(state.counter + 1);
     }
@@ -56,7 +56,7 @@ class Route extends CoreRoute
   public template({data, store, state}) {
     return (
       <div>
-        <h1>Version 15</h1>
+        <h1>Version 188</h1>
         <h1>Via Import</h1>
         <h1>This button has been clicked for {state.counter} times in passing store</h1>
         <h4>Your Current IP Address: {state.ip} </h4>
