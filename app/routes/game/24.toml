@@ -1,6 +1,0 @@
-[route]
-type = "page" # possible value, page or resource
-
-[request.GET]
-controller = "game24"
-action = "show"

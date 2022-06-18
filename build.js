@@ -4,6 +4,10 @@
  * each route can be either an MVC route or an FSR (full stack route)
  */
 
+console.log(require('./dummy_config.js'));
+process.exit(1);
+
+
 process.chdir(__dirname);
 
 const Rsync = require('rsync');

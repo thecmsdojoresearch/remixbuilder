@@ -3,11 +3,10 @@
  */
 import { useState } from 'react';
 import { useEffect } from 'react';
-const axios = require('axios');
 
-export default class BaseStore
+export default class Store
 {
-  private state = {};
+  protected state = {};
 
   public _init() {
     /// initialize getter and setter ////
@@ -40,7 +39,12 @@ export default class BaseStore
     return this;
   }
 
+  public _getState() {
+    return this.state;
+  }
+
   public async fetchJSON(url: string, method: string = 'GET', data: object = {}) {
+    const axios = require('axios');
     const payload = {
       method,
       url

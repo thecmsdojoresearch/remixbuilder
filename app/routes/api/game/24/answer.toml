@@ -1,7 +1,0 @@
-# include controller and action
-[route]
-type = "resource" # reference: https://remix.run/docs/en/v1/guides/resource-routes
-
-[request.POST]
-controller = "game24"
-action = "getAnswer"

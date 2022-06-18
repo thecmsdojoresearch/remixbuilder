@@ -19,6 +19,8 @@
   "dependencies": {
     "basename": "^0.1.2",
     "chokidar": "^3.5.3",
+    "dom-serializer": "^2.0.0",
+    "html-dom-parser": "^2.0.0",
     "rsync": "^0.6.1",
     "toml": "^3.0.0",
     "typescript": "^4.7.3"
