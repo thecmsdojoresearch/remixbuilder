@@ -1,13 +1,10 @@
 <button @click="store.incrementCounter()">Click</button>
 <input type="text" @value = "store.getName()" @change = "store.setName(e.target.value)" />
-<div>
-  <if bool = "state.getName().length > 3">
-  <p>Name is has more than 3 characters</p>
-  </if>
-  <elseif bool = "state.getName().length > 5">
-  <p>Name is has more than 5 characters</p>
-  </elseif>
-  <elseif bool = "state.getName().length > 10">
-  <p>Name is has more than 10 characters</p>
-  </elseif>
-</div>
+<ul>
+  <!--js for (i = 0; i < 3; i ++) { -->
+  <li id="`list-${i}`">{i}</li>
+  <!--js } -->
+</ul>
+
+{(() => { for (i = 0; i < 3; i++) {
+})()}
