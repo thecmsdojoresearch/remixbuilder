@@ -1,23 +1,10 @@
 const fs = require('fs');
-const { XMLParser, XMLBuilder } = require('fast-xml-parser');
-const { traverse } = require('object-traversal');
-const parser = new XMLParser({
-  ignoreAttributes: false
-});
-const builder = new XMLBuilder();
+const parse = require('html-dom-parser');
+const render = require("dom-serializer").default;
 
 const html = fs.readFileSync('./app/routes/index/template.client.html').toString();
 
-const regex = new RegExp(/<%.*?%>/gs, 'g');
-console.log(html.match(regex));
-
-//const tree = parser.parse(html);
-
-
-process.exit(1);
-tree['%'] = {'#text':'additional text'};
-
-console.log(builder.build(tree));
+const tree = parse(html);
 
 tree.forEach((node, index) => {
   if (node.type == "tag") {

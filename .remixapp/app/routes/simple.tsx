@@ -13,7 +13,7 @@ export default () => {
     }
   };
 
-  const number = 3;
+  const number = 10;
 
   return (
     <>
@@ -25,6 +25,18 @@ export default () => {
           <h1>{i}</h1>
         ); } return _; })()}
       </div>
+      {
+        (() => {
+          const _ = [];
+          switch(true) {
+            case (number > 3):
+              _.push(<h1>greater than 3</h1>);
+              break;
+          }
+
+          return _;
+        })()
+      }
     </>
-  )
+  );
 }
