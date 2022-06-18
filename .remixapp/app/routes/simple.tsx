@@ -20,11 +20,11 @@ export default () => {
       <button onClick={() => {store.incrementCounter()}}>Click</button>
       <input type="text" value={store.getName()} onChange = {(e) => {store.setName(e.target.value)}} />
       <p id={`list-${number}`}>hello</p>
-      <ul>
-        {(() => { return (
-          <li>item23334jim</li>
-        )})()}
-      </ul>
+      <div>
+        {(() => { const _ = []; for (let i = 0; i < 10; i ++) { _.push(
+          <h1>{i}</h1>
+        ); } return _; })()}
+      </div>
     </>
   )
 }
