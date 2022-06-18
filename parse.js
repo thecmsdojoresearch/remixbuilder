@@ -11,9 +11,20 @@ tree.forEach((node, index) => {
     if (node.attribs['@click'] !== undefined) {
       const expression = node.attribs['@click'];
       delete tree[index].attribs['@click'];
-      tree[index].attribs[`onClick={() => {${expression}}`] = null;
+      node.attribs[`onClick={() => {${expression}}}`] = null;
+    }
+  } else if (node.name == "input") {
+    if (node.attribs['@value'] !== undefined) {
+      const expression = node.attribs['@value'];
+      delete node.attribs['@value'];
+      node.attribs[`value={${expression}}`] = null;
+    }
+    if (node.attribs['@change'] !== undefined) {
+      const expression = node.attribs['@change'];
+      delete node.attribs['@change'];
+      node.attribs[`onChange = {(e) => {${expression}}}`] = null;
     }
   }
-})
+});
 
 console.log(render(tree));
