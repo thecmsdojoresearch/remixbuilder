@@ -1,10 +1,10 @@
 <button @click="store.incrementCounter()">Click</button>
 <input type="text" @value = "store.getName()" @change = "store.setName(e.target.value)" />
 <ul>
-  <!--js for (i = 0; i < 3; i ++) { -->
+  <!--% for (i = 0; i < 3; i ++) { -->
   <li id="`list-${i}`">{i}</li>
-  <!--js } -->
+  <!--% } -->
 </ul>
-
-{(() => { for (i = 0; i < 3; i++) {
-})()}
+<!--% if (number > 3) { -->
+<p>number is greater than 3</p>
+<!--% } -->
