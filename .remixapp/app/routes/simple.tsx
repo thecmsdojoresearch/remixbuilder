@@ -14,29 +14,9 @@ export default () => {
   };
 
   const number = 10;
+  const _ = [];
 
-  return (
-    <>
-      <button onClick={() => {store.incrementCounter()}}>Click</button>
-      <input type="text" value={store.getName()} onChange = {(e) => {store.setName(e.target.value)}} />
-      <p id={`list-${number}`}>hello</p>
-      <div>
-        {(() => { const _ = []; for (let i = 0; i < 10; i ++) { _.push(
-          <h1>{i}</h1>
-        ); } return _; })()}
-      </div>
-      {
-        (() => {
-          const _ = [];
-          switch(true) {
-            case (number > 3):
-              _.push(<h1>greater than 3</h1>);
-              break;
-          }
-
-          return _;
-        })()
-      }
-    </>
-  );
+  return (() => {
+    _.push(<h1>test1</h1>)
+  })();
 }
