@@ -8,7 +8,7 @@ const builder = new XMLBuilder();
 
 const html = fs.readFileSync('./app/routes/index/template.client.html').toString();
 
-const regex = new RegExp(/<!--%.*?-->/gs, 'g');
+const regex = new RegExp(/<%.*?%>/gs, 'g');
 console.log(html.match(regex));
 
 //const tree = parser.parse(html);
