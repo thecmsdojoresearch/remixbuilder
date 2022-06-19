@@ -13,11 +13,11 @@ export default () => {
   return (
     <>
       <ul>
-        <For in={items} as={(number, {key}) =>
-        <If condition={number % 2 == 1} >
-          <li>{number}</li>
-        </If>
-          } />
+        <For in={items} as={(number, { key }) =>
+          <If condition={number % 2 == 1} >
+            <li>{number}</li>
+          </If>
+        } />
       </ul>
     </>
   );
