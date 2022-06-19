@@ -1,18 +1,24 @@
-import { If, Elif, Else } from 'rc-if-else';
+import { If, ElIf, Else } from 'rc-if-else';
+import { For } from 'react-loops';
 
 export default () => {
-  const number = 2;
+  const items = {
+    n1: 1,
+    n2: 2,
+    n3: 3,
+    n4: 4,
+    n5: 5,
+    n6: 6,
+  };
   return (
     <>
-      <If condition={number > 3} >
-        <h1>Number is greater than 3</h1>
-      </If>
-      <If condition={number > 4} >
-        <h1>Number is greater than 4</h1>
-      </If>
-      <If condition={number > 10} >
-        <h1>Number is greater than 10</h1>
-      </If>
+      <ul>
+        <For in={items} as={(number, {key}) =>
+        <If condition={number % 2 == 1} >
+          <li>{number}</li>
+        </If>
+          } />
+      </ul>
     </>
   );
 }
