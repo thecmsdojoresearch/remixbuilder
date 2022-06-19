@@ -1,4 +1,4 @@
-exports.config = {
+exports default {
   type: 'resource' // resource | page
   request: {
 

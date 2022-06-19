@@ -1,6 +1,9 @@
-class Store extends CoreStore
-{
-  protected state = {
-    counter: 0  
+export default {
+  state: {
+    counter: 0,
+    number: 0
+  },
+  methods: {
+    
   }
 }
