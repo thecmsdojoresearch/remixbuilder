@@ -1,22 +1,18 @@
+import { If, Elif, Else } from 'rc-if-else';
+
 export default () => {
-  const store = {
-    incrementCounter() {
-      console.log('counter incremnt');
-    },
-
-    getName() {
-      return 'getting name';
-    },
-
-    setName(value) {
-      return 'setting name to ' + value;
-    }
-  };
-
-  const number = 10;
-  const _ = [];
-
-  return (() => {
-    _.push(<h1>test1</h1>)
-  })();
+  const number = 1;
+  return (
+    <>
+      <If condition={number > 3} >
+        <h1>Number is greater than 3</h1>
+      </If>
+      <If condition={number > 4} >
+        <h1>Number is greater than 4</h1>
+      </If>
+      <If condition={number > 10} >
+        <h1>Number is greater than 10</h1>
+      </If>
+    </>
+  );
 }

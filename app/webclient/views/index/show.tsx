@@ -8,7 +8,7 @@ export default () => {
 
   return (
     <div>
-      <h1>Version 8</h1>
+      <h1>Version 9</h1>
       <h1>Via Import</h1>
       <h1>This button has been clicked for {store.getCounter()} times in passing store</h1>
       <h4>Current IP Address: {store.getIp()} </h4>

@@ -8,7 +8,7 @@ export default class IndexController extends BaseController
 {
   public show() {
     const data = {
-      a: 25
+      a: 26
     }
    
     /*
