@@ -1,7 +1,7 @@
-<button @click="store.incrementCounter()">Click</button>
-<input type="text" @value = "store.getName()" @change = "store.setName(e.target.value)" />
 <ul>
-  <% for (i = 0; i < 3; i ++) { %>
-  <li id="`list-${i}`" @visible="true">{i}</li>
-  <% } %>
+  <For in={items} as={(number, {key})=>
+    <If condition={number % 2==1}>
+      <li>{number}</li>
+    </If>
+    } />
 </ul>
