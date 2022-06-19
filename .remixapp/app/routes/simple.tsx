@@ -1,7 +1,7 @@
 import { If, Elif, Else } from 'rc-if-else';
 
 export default () => {
-  const number = 1;
+  const number = 2;
   return (
     <>
       <If condition={number > 3} >
