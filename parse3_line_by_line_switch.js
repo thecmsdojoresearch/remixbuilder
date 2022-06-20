@@ -1,15 +1,18 @@
 const fs = require('fs');
 const html = fs.readFileSync('./app/routes/index/template.client.html').toString();
 
-const convertSwitchAndFor = (html) => {
+const convertSwitchAndFor = function() {
   const lines = html.split("\n");
 
-  const regexp = /<!--%.*?-->/;
+  const beginToken = '<!--%';
+  const endToken = '-->';
+
+  const regexp = new RegExp(`${beginToken}.*?${endToken}`);
 
   // auto convert swith case and for loop
   lines.forEach((line, lineOffset) => {
     if (regexp.exec(line)) {
-      lines[lineOffset] = line.replace("<!--%","").replace("-->","");
+      lines[lineOffset] = line.replace(beginToken,'').replace(endToken,'');
       const trimmedLineContent = lines[lineOffset].trim();
       if (trimmedLineContent.substr(0,6) === 'switch') {
         lines[lineOffset] = '{(() => {switch(true){';
