@@ -63,6 +63,8 @@ const normalizeTemplate = function(html) {
     // auto convert swith case and for loop
     lines[lineOffset] = convertIfAndFor(line);
 
+    line = lines[lineOffset];
+
     // convert @click
     lines[lineOffset] = convertAttributeShortcuts(line);
   });

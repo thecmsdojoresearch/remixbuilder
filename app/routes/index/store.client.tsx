@@ -4,7 +4,8 @@ const store = {
     password: '',
     counter: 0,
     ip: '',
-    number: 3
+    number: 3,
+    isLogin: false,
   },
   incrementCounter() {
     this.set('counter', this.state.counter + 1);

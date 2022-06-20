@@ -5,14 +5,28 @@
 import { fetchJSON } from '~/core';
 
 const page = {
-  login() {
-    fetchJSON('/api/user/login','POST', {
+  async login() {
+    const result = await fetchJSON('/api/user/login','POST', {
       username: store.state.username,
       password: store.state.password
     });
+    if (result.token && result.token.length > 0) {
+      window.localStorage.setItem("token", result.token);
+    }
+  },
+  isLoggedIn() {
+    let result = false;
+    const token = window.localStorage.getItem('token');
+    if (token !== null && token.length > 0) {
+      console.log('logged in');
+      result = true;
+    }
+    return result;
   },
   onload() {
     document.title = 'Welcome to the home page';
-    store.fetchCurrentIP();
+    if (this.isLoggedIn()) {
+      store.set('isLogin', true);
+    }
   }
 }

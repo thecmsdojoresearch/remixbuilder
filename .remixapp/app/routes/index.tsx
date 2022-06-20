@@ -9,12 +9,19 @@ export const loader = async (context) => {
 export const action = async (context) => {
   return route.action(context);
 }
+import fs = require('fs');
+
 const route = {
   async loader({ request, params }) {
-    const secret = "123456";
-    return {
-      word: 'me'
+    const data = {};
+
+    const content = await fs.promises.readFile(`${process.cwd()}/../db/authentication.json`);
+    const authentication = JSON.parse(content.toString());
+    if (authentication.username === 'jim' && authentication.token.length > 0) {
+      data.token = authentication.token;
+      console.log(data);
     }
+    return data; 
   },
   async action({ request, params }) {
     console.log(request.json());
@@ -32,15 +39,29 @@ const route = {
 import { fetchJSON } from '~/core';
 
 const page = {
-  login() {
-    fetchJSON('/api/user/login','POST', {
+  async login() {
+    const result = await fetchJSON('/api/user/login','POST', {
       username: store.state.username,
       password: store.state.password
     });
+    if (result.token && result.token.length > 0) {
+      window.localStorage.setItem("token", result.token);
+    }
+  },
+  isLoggedIn() {
+    let result = false;
+    const token = window.localStorage.getItem('token');
+    if (token !== null && token.length > 0) {
+      console.log('logged in');
+      result = true;
+    }
+    return result;
   },
   onload() {
     document.title = 'Welcome to the home page';
-    store.fetchCurrentIP();
+    if (this.isLoggedIn()) {
+      store.set('isLogin', true);
+    }
   }
 }
 
@@ -50,7 +71,8 @@ const store = {
     password: '',
     counter: 0,
     ip: '',
-    number: 3
+    number: 3,
+    isLogin: false,
   },
   incrementCounter() {
     this.set('counter', this.state.counter + 1);
@@ -83,6 +105,11 @@ export default () => {
   return (
   <>
     <div>
+{(() => {switch(true){case   (data.token.length > 0): return ( <>
+  <div id="">
+    <h1>You are logged in</h1>
+  </div>
+</>);default: return ( <>
   <div id="form-login">
     <div>
       <label>Your Username</label>
@@ -96,6 +123,8 @@ export default () => {
       Login
     </button>
   </div>
+  <div></div>
+</>);}})()}
 </div>
 
   </>
