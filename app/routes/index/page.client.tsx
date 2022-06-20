@@ -4,7 +4,7 @@
  */
 const page = {
   onload() {
-    document.title = 'Welcome';
-    this.$store.fetchCurrentIP();
+    document.title = 'Welcome to the home page';
+    store.fetchCurrentIP();
   }
 }

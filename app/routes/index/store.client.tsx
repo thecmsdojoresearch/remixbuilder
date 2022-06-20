@@ -1,6 +1,8 @@
 const store = {
   state: {
     counter: 0,
+    ip: '',
+    number: 3
   },
   incrementCounter() {
     this.set('counter', this.state.counter + 1);

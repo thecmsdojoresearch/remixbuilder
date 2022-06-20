@@ -1,5 +1,6 @@
 const route = {
   async loader({ request, params }) {
+    const secret = "123456";
     return {
       word: 'me'
     }
