@@ -1,31 +1,30 @@
 export default () => {
-  const number = 2;
+  const number = 1073;
+
   return (
     <div>
-      {(() => {switch(true){
-        case(number > 1) : return ( <>
-          <h1>number is greater than 1</h1>  
-          <h1>congrat!</h1>  
-        </>);
-        case(number > 3) : return ( <>
-          <h1>number is greater than 3</h1>  
-        </>);
-        case (number > 5) : return ( <>
-          <h1>number is greater than 5</h1>  
-        </>);
-      }})()}
+      {(() => {switch(true){case  (number % 2 === 0) : return ( <>
+        <h1>this can be divided by 2 jim</h1>  
+        <h1>congrat!</h1>  
+      </>);case  (number % 3 === 0) : return ( <>
+        <h1>this can be divided by 3 jim</h1> 
+      </>);case  (number % 5 === 0) : return ( <>
+        <h1>this can be divided by 5 jim</h1>  
+      </>);default: return ( <>
+        <h1>this can not be divided by 2,3 or 5 jim...opq</h1>  
+      </>);}})()}
       <ul>
-        {(() => { let _ = [];
+        {(() => { const _ = [];
           for(let i = 0; i < 10; i++) {_.push( <>
             <li>{i}</li>
           </> )} return _; } )()}
       </ul>
       <div>
-        {(() => { let _ = [];
+        {(() => { const _ = [];
           for(let i = 1; i <= 4; i++) {_.push( <>
             <h1>Section {i}</h1>
             <div>
-              {(() => { let _ = [];
+              {(() => { const _ = [];
                 for(let j = 1; j <= 4; j++) {_.push( <>
                   <p>{j}</p>
                 </> )} return _; } )()}
