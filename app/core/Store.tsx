@@ -6,9 +6,9 @@ import { useEffect } from 'react';
 
 export default class Store
 {
-  protected state = {};
+  protected storeDefinition = {};
 
-  public constructor(state) {
+  public constructor(storeDefinition) {
     this.state = state;
 
     /// initiate getter and setter ////
@@ -43,15 +43,6 @@ export default class Store
     }); 
 
     return this;
-  }
-
-  public _populateState(state = {}) {
-    this.state = state;
-    return this;
-  }
-
-  public _getState() {
-    return this.state;
   }
 
   public async fetchJSON(url: string, method: string = 'GET', data: object = {}) {
