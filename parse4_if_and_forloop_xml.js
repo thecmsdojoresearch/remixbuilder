@@ -1,7 +1,7 @@
 const fs = require('fs');
 const html = fs.readFileSync('./sample.html').toString();
 
-const convertSwitchAndFor = function() {
+const convertIfAndFor = function() {
   const lines = html.split("\n");
 
   const beginToken = '<!--%';

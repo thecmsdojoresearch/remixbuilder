@@ -45,7 +45,7 @@ export default (typeof route.view === 'function') ? () => {
 } : null
 `;
 
-const convertSwitchAndFor = function() {
+const convertIfAndFor = function() {
   const lines = html.split("\n");
 
   const beginToken = '<!--%';
