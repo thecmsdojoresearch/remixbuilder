@@ -105,7 +105,7 @@ export default () => {
   return (
   <>
     <div>
-{(() => {switch(true){case   (data.token.length > 0): return ( <>
+{(() => {switch(true){case   (data.token && data.token.length > 0): return ( <>
   <div id="">
     <h1>You are logged in</h1>
   </div>
