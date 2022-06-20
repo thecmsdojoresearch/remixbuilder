@@ -1,9 +1,9 @@
-export default {
+export default const store = {
   state: {
     counter: 0,
     number: 0
   },
-  methods: {
+  onload() {
     
   }
 }
