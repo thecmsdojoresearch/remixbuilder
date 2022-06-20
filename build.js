@@ -58,16 +58,17 @@ const convertSwitchAndFor = function() {
     if (regexp.exec(line)) {
       lines[lineOffset] = line.replace(beginToken,'').replace(endToken,'');
       const trimmedLineContent = lines[lineOffset].trim();
-      if (trimmedLineContent.substr(0,6) === 'switch') {
-        lines[lineOffset] = '{(() => {switch(true){';
-      } else if (trimmedLineContent.substr(0,4) === 'case') {
-        lines[lineOffset] = lines[lineOffset] + ':' + ' return ( <>'
-      } else if (trimmedLineContent.substr(0,7) === 'endcase') {
-        lines[lineOffset] = '</>);';
-      } else if (trimmedLineContent.substr(0,9) === 'endswitch') {
-        lines[lineOffset] = '}})()}';
+      if (trimmedLineContent.substr(0,2) === 'if') {
+        lines[lineOffset] = '{(() => {switch(true){' + 'case' + lines[lineOffset].replace('if','') + ':' + ' return ( <>';
+      } else if (trimmedLineContent.substr(0,6) === 'elseif') {
+        lines[lineOffset] = '</>);' + 'case' + lines[lineOffset].replace('elseif','') + ':' + ' return ( <>'
+      } else if (trimmedLineContent.substr(0,4) === 'else') {
+        lines[lineOffset] = '</>);' + 'default' + ':' + ' return ( <>'
+
+      } else if (trimmedLineContent.substr(0,5) === 'endif') {
+        lines[lineOffset] = '</>);' + '}})()}';
       } else if (trimmedLineContent.substr(0,3) === 'for') {
-        lines[lineOffset] = '{(() => { let _ = [];' + "\n" + lines[lineOffset] + '{' + '_.push( <>';
+        lines[lineOffset] = '{(() => { const _ = [];' + "\n" + lines[lineOffset] + '{' + '_.push( <>';
       } else if (trimmedLineContent.substr(0,6) === 'endfor') {
         lines[lineOffset] = '</> )} return _; } )()}';
       }

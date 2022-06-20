@@ -1,17 +1,22 @@
 export default () => {
-  const number = 1073;
+  const number = 9;
 
   return (
     <div>
       {(() => {switch(true){case  (number % 2 === 0) : return ( <>
-        <h1>this can be divided by 2 jim</h1>  
+        <h1>this can be divided by 2</h1>  
         <h1>congrat!</h1>  
       </>);case  (number % 3 === 0) : return ( <>
-        <h1>this can be divided by 3 jim</h1> 
+        <h1>this can be divided by 3</h1> 
+        <div>
+          {(() => {switch(true){case  (number === 9): return ( <>
+            <p>this is number 9</p> 
+          </>);}})()}
+        </div>
       </>);case  (number % 5 === 0) : return ( <>
-        <h1>this can be divided by 5 jim</h1>  
+        <h1>this can be divided by 5</h1>  
       </>);default: return ( <>
-        <h1>this can not be divided by 2,3 or 5 jim...opq</h1>  
+        <h1>this can not be divided by 2,3 or 5</h1>  
       </>);}})()}
       <ul>
         {(() => { const _ = [];
