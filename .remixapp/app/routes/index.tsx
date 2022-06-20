@@ -34,10 +34,20 @@ const store = {
 }
 
 /////////// Auto Generated Code ///////////
+import { useLoaderData } from "@remix-run/react";
 import { initStore } from '../core';
+
+export const loader = (context) => {
+  return route.loader(context); 
+}
+
+export const action = (context) => {
+  return route.action(context); 
+}
+
 export default () => {
+  const data = useLoaderData();
   initStore(store);
-  console.log(store);
 
   return (
     <h1>Current IP: 127.0.0.2</h1>

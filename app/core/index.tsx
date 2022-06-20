@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 export const initStore = (store) => {
-  store.state = state;
-
   /// initiate getter and setter ////
-  const stateKeys = Object.keys(state);
+  const stateKeys = Object.keys(store.state);
 
   stateKeys.forEach(keyName => {
     const initValue = store.state[keyName];

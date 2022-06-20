@@ -34,4 +34,6 @@ export const initStore = (store) => {
       store.onload();
     }
   }); 
+
+  return store;
 }
