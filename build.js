@@ -17,11 +17,11 @@ const FSRAutoTemplate = `
 /////////// Auto Generated Code ///////////
 import { useLoaderData } from "@remix-run/react";
 
-export const loader = (context) => {
+export const loader = async (context) => {
   return route.loader(context);
 }
 
-export const action = (context) => {
+export const action = async (context) => {
   return route.action(context);
 }
 `;
@@ -111,7 +111,7 @@ const convertAttributeShortcuts = function(line) {
   if (typeof matches == 'object' && matches !== null && matches.length == 2) {
     const fromText = matches[0];
     const stateKey = matches[1];
-    const toText = `value={state.${stateKey}} onChange={(e)=>{store._${stateKey}Set(e.target.value)}}`;
+    const toText = `value={state.${stateKey}} onChange={(e)=>{store.set('${stateKey}', e.target.value)}}`;
     line = line.replace(fromText, toText);
   }
 
@@ -156,6 +156,8 @@ const buildFSRoute = (path) => {
     }
   }
 
+  //first, attempt to create the target route directory
+  execSync(`mkdir -p ${pathutil.dirname(targetRoutePath)}`);
   fs.writeFileSync(targetRoutePath, targetRouteContent);
   console.log(`generated route ${targetRoutePath}`);
 

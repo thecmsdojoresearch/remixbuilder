@@ -6,6 +6,7 @@ const route = {
     }
   },
   async action({ request, params }) {
+    console.log(request.json());
     return {
       word: 'post'
     }

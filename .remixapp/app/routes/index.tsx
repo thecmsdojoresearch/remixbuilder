@@ -2,11 +2,11 @@
 /////////// Auto Generated Code ///////////
 import { useLoaderData } from "@remix-run/react";
 
-export const loader = (context) => {
+export const loader = async (context) => {
   return route.loader(context);
 }
 
-export const action = (context) => {
+export const action = async (context) => {
   return route.action(context);
 }
 const route = {
@@ -17,6 +17,7 @@ const route = {
     }
   },
   async action({ request, params }) {
+    console.log(request.json());
     return {
       word: 'post'
     }
@@ -28,10 +29,14 @@ const route = {
  * this is the main route component to be presented in the route
  * if this component file is presented, this route will be rendered as a page
  */
+import { fetchJSON } from '~/core';
+
 const page = {
   login() {
-    console.log(store.state.username);
-    console.log(store.state.password);
+    fetchJSON('/api/user/login','POST', {
+      username: store.state.username,
+      password: store.state.password
+    });
   },
   onload() {
     document.title = 'Welcome to the home page';
@@ -80,12 +85,12 @@ export default () => {
     <div>
   <div id="form-login">
     <div>
-      <label>Username</label>
-      <input type="text" value={state.username} onChange={(e)=>{store._usernameSet(e.target.value)}} />
+      <label>Your Username</label>
+      <input type="text" value={state.username} onChange={(e)=>{store.set('username', e.target.value)}} />
     </div>
     <div>
-      <label>Password</label>
-      <input type="password" value={state.password} onChange={(e)=>{store._passwordSet(e.target.value)}}/>
+      <label>Your Password</label>
+      <input type="password" value={state.password} onChange={(e)=>{store.set('password', e.target.value)}}/>
     </div>
     <button onClick={()=>{page.login()}}>
       Login
