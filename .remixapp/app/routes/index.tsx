@@ -73,10 +73,10 @@ export default () => {
   <>
     <div>
   <h1>ip: {state.ip}</h1>
-{(() => {switch(true){case   (state.number % 2 == 0) : return ( <>
+{(() => {switch(true){case   state.number % 2 == 0 : return ( <>
   <h4>{state.number} is an even number ......</h4>
-</>);case   (state.number % 3 == 0) : return ( <>
-  <h4>{state.number} can be divided by 3 ......</h4>
+</>);default: return ( <>
+  <h4>{state.number} is an odd number ......</h4>
 </>);}})()}
 </div>
 
