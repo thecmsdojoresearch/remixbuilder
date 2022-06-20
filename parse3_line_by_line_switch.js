@@ -4,12 +4,12 @@ const html = fs.readFileSync('./app/routes/index/template.client.html').toString
 const convertSwitchAndFor = (html) => {
   const lines = html.split("\n");
 
-  const regexp = /<%.*?%>/;
+  const regexp = /<!--%.*?-->/;
 
   // auto convert swith case and for loop
   lines.forEach((line, lineOffset) => {
     if (regexp.exec(line)) {
-      lines[lineOffset] = line.replace("<%","").replace("%>","");
+      lines[lineOffset] = line.replace("<!--%","").replace("-->","");
       const trimmedLineContent = lines[lineOffset].trim();
       if (trimmedLineContent.substr(0,6) === 'switch') {
         lines[lineOffset] = '{(() => {switch(true){';
@@ -28,3 +28,5 @@ const convertSwitchAndFor = (html) => {
   });
   return lines.join("\n");
 };
+
+console.log(convertSwitchAndFor(html));
