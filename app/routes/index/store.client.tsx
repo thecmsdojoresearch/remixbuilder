@@ -4,6 +4,6 @@ export default const store = {
     number: 0
   },
   onload() {
-    
+        
   }
 }

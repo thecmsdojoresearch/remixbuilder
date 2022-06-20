@@ -8,8 +8,10 @@ export default class Store
 {
   protected state = {};
 
-  public _init() {
-    /// initialize getter and setter ////
+  public constructor(state) {
+    this.state = state;
+
+    /// initiate getter and setter ////
     const stateKeys = Object.keys(this.state);
 
     stateKeys.forEach(keyName => {
@@ -18,13 +20,22 @@ export default class Store
 
       this.state[keyName] = stateResult[0];
       const mutationSetterFunction = stateResult[1];
-      const mutationSetterName = "set" + keyName.charAt(0).toUpperCase() + keyName.slice(1);
-      const mutationGetterName = "get" + keyName.charAt(0).toUpperCase() + keyName.slice(1);
+      const mutationSetterName = `_${keyName}Set`;
+      const mutationGetterName = `_${keyName}Get`;
       this[mutationSetterName] = mutationSetterFunction;
-      this[mutationGetterName] = () => {
+      this[mutationGetterName] = (keyName) => {
         return this.state[keyName]; 
       }
     });
+
+    // now initiate set and get
+    this.set = (keyName, value) {
+      this[`_${keyName}Set`](value);
+    }
+
+    this.get = (keyName) {
+      return this[`_${keyName}Get`]();
+    }
 
     /// initiate onload //////////////
     useEffect( () => {
