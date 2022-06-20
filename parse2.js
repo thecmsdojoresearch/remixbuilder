@@ -14,14 +14,15 @@ const tree = parser.parse(html);
 console.log(tree);
 
 traverse(tree, (node) => {
-  if (node.key == "loop") {
-    let tagValue = tree;
-    node.meta.nodePath.split('.').slice(0,-1).forEach(tag => {
-      tagValue = tagValue[tag];
-    });
-
-    tagValue[node.key] = 'jim';
+  const comments = [];
+  if (typeof node.comment === 'object') {
+    comments = node.comment;
+  } else if (typeof node.comment === 'string') {
+    comments.push(node.comment);
   }
+
+  comments.forEach(comment => {
+  });
 });
 
 const finalHTML = builder.build(tree);

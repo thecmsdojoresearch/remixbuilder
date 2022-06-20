@@ -1,3 +1,9 @@
 <ul>
-  <li loop="i=0;i<10;i++" value="i" key="i">{i}</li>
+  <% for (let i = 0; i< 3; i++) %>
+  <li>{i}</li>
+  <% endfor %>
+  <% switch %>
+  <% case number > 1 %>
+  <li></li>
+  <% endswitch %>
 </ul>
