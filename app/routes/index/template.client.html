@@ -1,9 +1,13 @@
-<ul>
-  <% for (let i = 0; i< 3; i++) %>
-  <li>{i}</li>
-  <% endfor %>
+<div>
   <% switch %>
-  <% case number > 1 %>
-  <li></li>
+  <% case(number > 1) %>
+  <h1>number is greater than 1</h1>  
+  <% endcase %>
+  <% case(number > 3) %>
+  <h1>number is greater than 3</h1>  
+  <% endcase %>
+  <% case (number > 5) %>
+  <h1>number is greater than 5</h1>  
+  <% endcase %>
   <% endswitch %>
-</ul>
+</div>
