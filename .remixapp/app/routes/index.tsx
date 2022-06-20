@@ -9,17 +9,19 @@ export const loader = async (context) => {
 export const action = async (context) => {
   return route.action(context);
 }
-import fs = require('fs');
+const fs = require('fs');
+const sha1 = require('sha1');
 
 const route = {
   async loader({ request, params }) {
     const data = {};
 
-    const content = await fs.promises.readFile(`${process.cwd()}/../db/authentication.json`);
+    const content = await fs.promises.readFile(`${process.cwd()}/../db/session.json`);
     const authentication = JSON.parse(content.toString());
-    if (authentication.username === 'jim' && authentication.token.length > 0) {
-      data.token = authentication.token;
-      console.log(data);
+    console.log(authentication);
+    const token = sha1('jim');
+    if (authentication[token] !== undefined) {
+      data.token = token;
     }
     return data; 
   },

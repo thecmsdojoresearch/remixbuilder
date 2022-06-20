@@ -11,11 +11,14 @@ const route = {
 
     if (username === 'jim' && password === '123') {
       const token = sha1(username);
-      const dataToStore = JSON.stringify({
+      const payload = {
+      };
+      payload[token] = {
         username,
         token 
-      });
-      await fs.promises.writeFile(`${process.cwd()}/../db/authentication.json`, dataToStore);
+      };
+      const dataToStore = JSON.stringify(payload);
+      await fs.promises.writeFile(`${process.cwd()}/../db/session.json`, dataToStore);
     }
 
     return data;
