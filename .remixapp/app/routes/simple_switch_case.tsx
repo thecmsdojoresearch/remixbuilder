@@ -1,6 +1,5 @@
 export default () => {
   const number = 2;
-
   return (
     <div>
       {(() => {switch(true){
@@ -15,6 +14,12 @@ export default () => {
           <h1>number is greater than 5</h1>  
         </>);
       }})()}
+      <ul>
+        {(() => { let _ = [];
+          for(let i = 0; i < 9; i++){_.push( <>
+            <li>{i}</li>
+          </> )} return _; } )()}
+      </ul>
     </div>
   );
 }
