@@ -3,14 +3,15 @@
  */
 import { useState } from 'react';
 import { useEffect } from 'react';
-const axios = require('axios');
 
-export default class BaseStore
+export default class Store
 {
-  private state = {};
+  protected storeDefinition = {};
 
-  public _init() {
-    /// initialize getter and setter ////
+  public constructor(storeDefinition) {
+    this.state = state;
+
+    /// initiate getter and setter ////
     const stateKeys = Object.keys(this.state);
 
     stateKeys.forEach(keyName => {
@@ -19,13 +20,22 @@ export default class BaseStore
 
       this.state[keyName] = stateResult[0];
       const mutationSetterFunction = stateResult[1];
-      const mutationSetterName = "set" + keyName.charAt(0).toUpperCase() + keyName.slice(1);
-      const mutationGetterName = "get" + keyName.charAt(0).toUpperCase() + keyName.slice(1);
+      const mutationSetterName = `_${keyName}Set`;
+      const mutationGetterName = `_${keyName}Get`;
       this[mutationSetterName] = mutationSetterFunction;
-      this[mutationGetterName] = () => {
+      this[mutationGetterName] = (keyName) => {
         return this.state[keyName]; 
       }
     });
+
+    // now initiate set and get
+    this.set = (keyName, value) {
+      this[`_${keyName}Set`](value);
+    }
+
+    this.get = (keyName) {
+      return this[`_${keyName}Get`]();
+    }
 
     /// initiate onload //////////////
     useEffect( () => {
@@ -35,12 +45,8 @@ export default class BaseStore
     return this;
   }
 
-  public _populateState(state = {}) {
-    this.state = state;
-    return this;
-  }
-
   public async fetchJSON(url: string, method: string = 'GET', data: object = {}) {
+    const axios = require('axios');
     const payload = {
       method,
       url

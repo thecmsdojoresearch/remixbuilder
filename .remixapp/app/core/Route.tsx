@@ -7,10 +7,6 @@ export default class Route
     return this.data;
   }
 
-  public getState() {
-    return this.state;
-  }
-
   public async loader({ request, params }) {
     return {};
   }

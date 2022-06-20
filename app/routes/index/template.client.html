@@ -1,16 +1,19 @@
 <div>
-  <!--% switch -->
-  <!--%case(number > 1) -->
-  <h1>number is greater than 1</h1>  
+  <!--%if(number % 2 === 0) -->
+  <h1>this can be divided by 2</h1>  
   <h1>congrat!</h1>  
-  <!--%endcase -->
-  <!--%case(number > 3) -->
-  <h1>number is greater than 3</h1>  
-  <!--%endcase -->
-  <!--%case (number > 5) -->
-  <h1>number is greater than 5</h1>  
-  <!--%endcase -->
-  <!--%endswitch -->
+  <!--%elseif(number % 3 === 0) -->
+  <h1>this can be divided by 3</h1> 
+  <div>
+    <!--%if(number === 9)-->
+    <p>this is number 9</p> 
+    <!--%endif-->
+  </div>
+  <!--%elseif(number % 5 === 0) -->
+  <h1>this can be divided by 5</h1>  
+  <!--%else -->
+  <h1>this can not be divided by 2,3 or 5</h1>  
+  <!--%endif -->
   <ul>
     <!--% for(let i = 0; i < 10; i++) -->
     <li>{i}</li>
@@ -22,8 +25,8 @@
     <div>
       <!--% for(let j = 1; j <= 4; j++) -->
       <p>{j}</p>
-      <!--%endfor -->
+      <!--% endfor -->
     </div>
-    <!--%endfor -->
+    <!--% endfor -->
   </div>
 </div>

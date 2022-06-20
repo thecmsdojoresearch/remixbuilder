@@ -1,12 +1,12 @@
-class Route extends CoreRoute
-{
-  public async loader({ request, params }) {
+const route = {
+  async loader({ request, params }) {
     return {
       word: 'me'
     }
-  }
-
-  public async action({ request, params }) {
-  
+  },
+  async action({ request, params }) {
+    return {
+      word: 'post'
+    }
   }
 }

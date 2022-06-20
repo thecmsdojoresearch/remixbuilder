@@ -1,6 +1,16 @@
 const fs = require('fs');
 const html = fs.readFileSync('./sample.html').toString();
 
+const { XMLParser, XMLBuilder, XMLValidator} = require('fast-xml-parser');
+const { traverse } = require('object-traversal');
+const options = {
+  ignoreAttributes: false,
+  attributeNamePrefix : "",
+  commentPropName: "#comment"
+};
+const parser = new XMLParser(options);
+const builder = new XMLBuilder(options);
+
 const convertIfAndFor = function() {
   const lines = html.split("\n");
 
@@ -33,4 +43,4 @@ const convertIfAndFor = function() {
   return lines.join("\n");
 };
 
-console.log(convertSwitchAndFor(html));
+//console.log(convertSwitchAndFor(html));
