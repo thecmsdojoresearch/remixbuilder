@@ -1,8 +1,15 @@
 <div>
-  <h1>ip: {state.ip}</h1>
-  <!--%if state.number % 2 == 0 -->
-  <h4>{state.number} is an even number ......</h4>
-  <!--%else -->
-  <h4>{state.number} is an odd number ......</h4>
-  <!--%endif -->
+  <div id="form-login">
+    <div>
+      <label>Username</label>
+      <input type="text" @bind="username" />
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password" @bind="password"/>
+    </div>
+    <button @click="page.login()">
+      Login
+    </button>
+  </div>
 </div>

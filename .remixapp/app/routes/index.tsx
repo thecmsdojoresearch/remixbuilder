@@ -29,6 +29,10 @@ const route = {
  * if this component file is presented, this route will be rendered as a page
  */
 const page = {
+  login() {
+    console.log(store.state.username);
+    console.log(store.state.password);
+  },
   onload() {
     document.title = 'Welcome to the home page';
     store.fetchCurrentIP();
@@ -37,6 +41,8 @@ const page = {
 
 const store = {
   state: {
+    username: '',
+    password: '',
     counter: 0,
     ip: '',
     number: 3
@@ -72,12 +78,19 @@ export default () => {
   return (
   <>
     <div>
-  <h1>ip: {state.ip}</h1>
-{(() => {switch(true){case   state.number % 2 == 0 : return ( <>
-  <h4>{state.number} is an even number ......</h4>
-</>);default: return ( <>
-  <h4>{state.number} is an odd number ......</h4>
-</>);}})()}
+  <div id="form-login">
+    <div>
+      <label>Username</label>
+      <input type="text" value={state.username} onChange={(e)=>{store._usernameSet(e.target.value)}} />
+    </div>
+    <div>
+      <label>Password</label>
+      <input type="password" value={state.password} onChange={(e)=>{store._passwordSet(e.target.value)}}/>
+    </div>
+    <button onClick={()=>{page.login()}}>
+      Login
+    </button>
+  </div>
 </div>
 
   </>

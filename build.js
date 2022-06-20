@@ -61,12 +61,15 @@ const normalizeTemplate = function(html) {
 
   lines.forEach((line, lineOffset) => {
     // auto convert swith case and for loop
-    lines[lineOffset] = convertIfAndFor(line, lineOffset, lines);
+    lines[lineOffset] = convertIfAndFor(line);
+
+    // convert @click
+    lines[lineOffset] = convertAttributeShortcuts(line);
   });
   return lines.join("\n");
 }
 
-const convertIfAndFor = function(line, lineOffset, lines) {
+const convertIfAndFor = function(line) {
   const beginToken = '<!--%';
   const endToken = '-->';
   const regexp = new RegExp(`${beginToken}.*?${endToken}`);
@@ -89,6 +92,30 @@ const convertIfAndFor = function(line, lineOffset, lines) {
       line = '</> )} return _; } )()}';
     }
   }
+  return line;
+};
+
+const convertAttributeShortcuts = function(line) {
+  const regexp1 = new RegExp('\@click\=\"([A-Za-z0-9.() _]*)\"');
+  let matches;
+  matches = line.match(regexp1);
+  if (typeof matches == 'object' && matches !== null && matches.length == 2) {
+    const fromText = matches[0];
+    const expression = matches[1];
+    const toText = `onClick={()=>{${expression}}}`;
+    line = line.replace(fromText, toText);
+  }
+
+  const regexp2 = new RegExp('\@bind\=\"([A-Za-z0-9_]*)\"');
+  matches = line.match(regexp2);
+  if (typeof matches == 'object' && matches !== null && matches.length == 2) {
+    const fromText = matches[0];
+    const stateKey = matches[1];
+    const toText = `value={state.${stateKey}} onChange={(e)=>{store._${stateKey}Set(e.target.value)}}`;
+    line = line.replace(fromText, toText);
+  }
+
+
   return line;
 };
 

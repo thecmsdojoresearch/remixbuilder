@@ -1,5 +1,7 @@
 const store = {
   state: {
+    username: '',
+    password: '',
     counter: 0,
     ip: '',
     number: 3
