@@ -16,7 +16,7 @@ const route = {
   async loader({ request, params }) {
     const data = {};
     const cookieSha1 = sha1(request.headers.get('cookie'));
-    const content = await fs.promises.readFile(`${process.cwd()}/../db/session.json`);
+    const content = await fs.promises.readFile(`${process.cwd()}/../db/session/${cookieSha1}.json`);
     const authentication = JSON.parse(content.toString());
     const token = sha1('jim');
     if (authentication[token] !== undefined) {
