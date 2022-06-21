@@ -6,7 +6,7 @@ export default class IndexStore extends BaseStore
     counter: 0,
     message: '',
     submittedMessage: '',
-    ip: '',
+    ip: '127.0.0.1',
     weatherInfo: {}
   }
 
