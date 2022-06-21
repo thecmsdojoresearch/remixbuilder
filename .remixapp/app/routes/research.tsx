@@ -14,10 +14,6 @@ const templates = {
 }
 
 export async function loader({rquest, params}) {
-  return {"template": "logout"}
-}
-
-export default () => {
-  const data = useLoaderData();
-  return templates[data.template]();
+  console.log(templates.login.toString());
+  return {"template": "1"}
 }
