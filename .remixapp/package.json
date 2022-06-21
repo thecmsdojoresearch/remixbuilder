@@ -11,6 +11,7 @@
     "@remix-run/react": "^1.5.1",
     "@remix-run/serve": "^1.5.1",
     "axios": "^0.27.2",
+    "jsonwebtoken": "^8.5.1",
     "rc-if-else": "^1.2.1",
     "react": "^17.0.2",
     "react-directive": "^1.0.0",
