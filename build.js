@@ -161,8 +161,17 @@ const buildFSRoute = (path) => {
       template = normalizeTemplate(templateHTML);
       targetRouteContent += "\n" + FSRAutoViewTemplate.replace('<!--fsr_route_template-->', normalizeTemplate(templateHTML));
     } else {
-      console.log("ERROR: Missing Page Template: template.client.html");
-      return;
+      targetRouteContent += "\n" + `
+      import { useEffect } from 'react';
+      export default ()=> {
+        /// initiate onload //////////////
+        useEffect( () => {
+          if (page.onload !== undefined) {
+            page.onload();
+          }
+        });
+        return <></>
+      }`
     }
   }
 
