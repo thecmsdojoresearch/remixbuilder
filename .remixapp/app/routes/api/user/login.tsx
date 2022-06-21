@@ -21,15 +21,15 @@ const route = {
     const data = {};
 
     if (username === 'jim' && password === '123') {
+      const cookieSha1 = sha1(request.headers.get('cookie'));
+      //now we got the cookie sha1, write to the session
       const token = sha1(username);
       const payload = {
-      };
-      payload[token] = {
         username,
         token 
       };
       const dataToStore = JSON.stringify(payload);
-      await fs.promises.writeFile(`${process.cwd()}/../db/session.json`, dataToStore);
+      await fs.promises.writeFile(`${process.cwd()}/../db/session/${cookieSha1}.json`, dataToStore);
       data.token = token;
     }
 
