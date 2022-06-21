@@ -40,11 +40,14 @@ const route = {
  */
 import { fetchJSON } from '~/core';
 
-const loginBlock = (
-  <h1>Login Block</h1>
-);
-
 const page = {
+  components:{
+    left_nav() {
+      return (
+        <h1>Navigation, {store.state.isLoggedIn? 'true':'false'}</h1>
+      );
+    }
+  },
   async login() {
     const result = await fetchJSON('/api/user/login','POST', {
       username: store.state.username,
@@ -111,6 +114,7 @@ export default () => {
     <div>
 {(() => {switch(true){case   state.isLoggedIn === true : return ( <>
   <p>Logged in</p>
+  {page.components.left_nav()}
   <button onClick={()=>{page.logout()}}>Log Out</button>
 </>);default: return ( <>
   <div id="form-login">

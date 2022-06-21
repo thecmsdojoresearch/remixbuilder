@@ -4,11 +4,14 @@
  */
 import { fetchJSON } from '~/core';
 
-const loginBlock = (
-  <h1>Login Block</h1>
-);
-
 const page = {
+  components:{
+    left_nav() {
+      return (
+        <h1>Navigation, {store.state.isLoggedIn? 'true':'false'}</h1>
+      );
+    }
+  },
   async login() {
     const result = await fetchJSON('/api/user/login','POST', {
       username: store.state.username,

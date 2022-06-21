@@ -1,6 +1,7 @@
 <div>
   <!--%if state.isLoggedIn === true -->
   <p>Logged in</p>
+  {page.components.left_nav()}
   <button @click="page.logout()">Log Out</button>
   <!--%else -->
   <div id="form-login">

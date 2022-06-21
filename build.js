@@ -144,7 +144,7 @@ const buildFSRoute = (path) => {
       targetRouteContent += "\n" + fs.readFileSync(`${dirName}/store.client.tsx`).toString();
     } else {
       //we do not have the store file defined, we will just have the empty store
-      targetRouteContent += "\n" + "const store = {}" + "\n";
+      targetRouteContent += "\n" + "const store = {state:{}}" + "\n";
     }
 
     //now we have a template, need to read from template.client.html
