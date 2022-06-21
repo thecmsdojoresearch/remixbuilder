@@ -9,15 +9,17 @@ export const loader = async (context) => {
 export const action = async (context) => {
   return route.action(context);
 }
-const route = {
-  async loader({ request, params }) {
-    return {};
-  },
-  async action({ request, params }) {
-    return {};
-  }
-}
 
+
+    const route = {
+      async loader() {
+        return {}
+      },
+      async action() {
+        return {}
+      }
+    }
+    
 
 import { fetchJSON } from '~/core';
 

@@ -128,12 +128,20 @@ const buildFSRoute = (path) => {
   let targetRouteContent = FSRAutoTemplate;
 
   //read the route file
-  if (!fs.existsSync(`${dirName}/route.server.tsx`)) {
-    console.log("ERROR: route.server.tsx must be defined!");
-    return;
+  if (fs.existsSync(`${dirName}/route.server.tsx`)) {
+    targetRouteContent += fs.readFileSync(`${dirName}/route.server.tsx`).toString() + "\n";
+  } else {
+    targetRouteContent += "\n" + `
+    const route = {
+      async loader() {
+        return {}
+      },
+      async action() {
+        return {}
+      }
+    }
+    ` + "\n";
   }
-
-  targetRouteContent += fs.readFileSync(`${dirName}/route.server.tsx`).toString() + "\n";
 
   //check if page.client.tsx exists
   if (fs.existsSync(`${dirName}/page.client.tsx`)) {
