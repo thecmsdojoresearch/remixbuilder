@@ -4,6 +4,10 @@
  */
 import { fetchJSON } from '~/core';
 
+const loginBlock = (
+  <h1>Login Block</h1>
+);
+
 const page = {
   async login() {
     const result = await fetchJSON('/api/user/login','POST', {
@@ -12,13 +16,17 @@ const page = {
     });
     if (result.token && result.token.length > 0) {
       window.localStorage.setItem("token", result.token);
+      window.location.reload();
     }
+  },
+  logout() {
+    window.localStorage.removeItem("token");
+    window.location.reload();
   },
   isLoggedIn() {
     let result = false;
     const token = window.localStorage.getItem('token');
     if (token !== null && token.length > 0) {
-      console.log('logged in');
       result = true;
     }
     return result;

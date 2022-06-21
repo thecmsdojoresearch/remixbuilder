@@ -30,6 +30,7 @@ const route = {
       };
       const dataToStore = JSON.stringify(payload);
       await fs.promises.writeFile(`${process.cwd()}/../db/session.json`, dataToStore);
+      data.token = token;
     }
 
     return data;

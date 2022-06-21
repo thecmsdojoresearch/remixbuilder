@@ -40,6 +40,10 @@ const route = {
  */
 import { fetchJSON } from '~/core';
 
+const loginBlock = (
+  <h1>Login Block</h1>
+);
+
 const page = {
   async login() {
     const result = await fetchJSON('/api/user/login','POST', {
@@ -48,13 +52,17 @@ const page = {
     });
     if (result.token && result.token.length > 0) {
       window.localStorage.setItem("token", result.token);
+      window.location.reload();
     }
+  },
+  logout() {
+    window.localStorage.removeItem("token");
+    window.location.reload();
   },
   isLoggedIn() {
     let result = false;
     const token = window.localStorage.getItem('token');
     if (token !== null && token.length > 0) {
-      console.log('logged in');
       result = true;
     }
     return result;
@@ -107,25 +115,23 @@ export default () => {
   return (
   <>
     <div>
-{(() => {switch(true){case   (data.token && data.token.length > 0): return ( <>
-  <div id="">
-    <h1>You are logged in</h1>
-  </div>
+{(() => {switch(true){case   state.isLogin : return ( <>
+  <p>Logged in</p>
+  <button onClick={()=>{page.logout()}}>Log Out</button>
 </>);default: return ( <>
   <div id="form-login">
     <div>
-      <label>Your Username</label>
+      <label>Your Username...</label>
       <input type="text" value={state.username} onChange={(e)=>{store.set('username', e.target.value)}} />
     </div>
     <div>
-      <label>Your Password</label>
+      <label>Your Password...</label>
       <input type="password" value={state.password} onChange={(e)=>{store.set('password', e.target.value)}}/>
     </div>
     <button onClick={()=>{page.login()}}>
       Login
     </button>
   </div>
-  <div></div>
 </>);}})()}
 </div>
 
