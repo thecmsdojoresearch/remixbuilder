@@ -42,11 +42,7 @@ import { fetchJSON } from '~/core';
 
 const page = {
   components:{
-    left_nav() {
-      return (
-        <h1>Navigation, {store.state.isLoggedIn? 'true':'false'}</h1>
-      );
-    }
+    left_nav: require('~/libs/components/left_nav').default,
   },
   async login() {
     const result = await fetchJSON('/api/user/login','POST', {
@@ -114,7 +110,7 @@ export default () => {
     <div>
 {(() => {switch(true){case   state.isLoggedIn === true : return ( <>
   <p>Logged in</p>
-  {page.components.left_nav()}
+  <page.components.left_nav store={store} />
   <button onClick={()=>{page.logout()}}>Log Out</button>
 </>);default: return ( <>
   <div id="form-login">

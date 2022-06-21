@@ -6,11 +6,7 @@ import { fetchJSON } from '~/core';
 
 const page = {
   components:{
-    left_nav() {
-      return (
-        <h1>Navigation, {store.state.isLoggedIn? 'true':'false'}</h1>
-      );
-    }
+    left_nav: require('~/libs/components/left_nav').default,
   },
   async login() {
     const result = await fetchJSON('/api/user/login','POST', {
