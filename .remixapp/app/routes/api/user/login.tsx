@@ -24,6 +24,10 @@ class User
 
   async authenticate(request){
     let result = {};
+    if (request.headers.get('cookie') === null) {
+      return {};
+    }
+    
     const requestPayload = await request.json();
     const incomingUsername = requestPayload.username.trim();
     const incomingPassword = requestPayload.password.trim();
