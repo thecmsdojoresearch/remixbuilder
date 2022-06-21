@@ -1,26 +1,7 @@
 const sha1 = require('sha1');
 const fs = require('fs');
 
-class DB
-{ 
-  private path = "../db";
-
-  public async get(key) {
-    console.log(key);
-    const keyPath = key.replace(".","/");
-    const keyFile = `${process.cwd()}/${this.path}/${keyPath}.json`;
-    let result = {};
-    result = await fs.promises.readFile(keyFile);
-    result = JSON.parse(result.toString());
-    return result;
-  }
-
-  public async set(key:string, value:object) {
-    const valueJSON = JSON.stringify(value);
-    const keyPath = key.replace(".","/");
-    await fs.promises.writeFile(`${process.cwd()}/${this.path}/${keyPath}.json`, valueJSON);
-  }
-}
+import DB from '~/core/fsdb';
 
 async function authenticate(request){
   let result = {};
@@ -28,18 +9,16 @@ async function authenticate(request){
   const incomingUsername = requestPayload.username.trim();
   const incomingPassword = requestPayload.password.trim();
 
-  const cookieSha1 = sha1(request.headers.get('cookie'));
-
   const db = new DB();
+  const cookieSha1 = sha1(request.headers.get('cookie'));
+  const sessionInfo = await db.get(`session/${cookieSha1}`);
+  
   const userData = await db.get(`user/${incomingUsername}`);
 
   if (userData.username && userData.passhash && userData.passhash === sha1(incomingPassword)) {
-    const sessionInfo = await db.get(`session/${cookieSha1}`);
     result.token = sessionInfo.token;
   }
-
-  console.log(result);
-
+  
   return result;
 }
 
