@@ -110,7 +110,9 @@ export default () => {
     <div>
 {(() => {switch(true){case   state.isLoggedIn === true : return ( <>
   <p>Logged in</p>
-  <page.components.left_nav store={store} />
+  <div style={{background: "lightYellow", border: "1px silver solid"}}>
+    <page.components.left_nav store={store} />
+  </div>
   <button onClick={()=>{page.logout()}}>Log Out</button>
 </>);default: return ( <>
   <div id="form-login">
