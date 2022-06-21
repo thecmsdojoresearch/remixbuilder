@@ -16,25 +16,19 @@ const page = {
     });
     if (result.token && result.token.length > 0) {
       window.localStorage.setItem("token", result.token);
-      window.location.reload();
+      store.set('isLoggedIn', true);
     }
   },
   logout() {
     window.localStorage.removeItem("token");
-    window.location.reload();
-  },
-  isLoggedIn() {
-    let result = false;
-    const token = window.localStorage.getItem('token');
-    if (token !== null && token.length > 0) {
-      result = true;
-    }
-    return result;
+    store.set('isLoggedIn', false);
   },
   onload() {
     document.title = 'Welcome to the home page';
-    if (this.isLoggedIn()) {
-      store.set('isLogin', true);
+    if (window.localStorage.getItem("token") !== null) {
+      store.set('isLoggedIn', true);
+    } else {
+      store.set('isLoggedIn', false);
     }
   }
 }

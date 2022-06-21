@@ -5,7 +5,7 @@ const store = {
     counter: 0,
     ip: '',
     number: 3,
-    isLogin: false,
+    isLoggedIn: false,
   },
   incrementCounter() {
     this.set('counter', this.state.counter + 1);
