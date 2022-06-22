@@ -1,0 +1,9 @@
+[get]
+handler = (request, response) => {
+    return <h1>hello</h1>
+}
+
+[post]
+handler = (request, response) => {
+    return <h1>hello</h1>
+}
