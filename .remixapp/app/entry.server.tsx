@@ -9,38 +9,12 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext
 ) { 
-    if (!request.url.includes('/api')) {
-        responseHeaders.set("Content-Type", "text/html");
-        
-        const comp = () => {
-            return (
-                <>
-                    <head>
-                        <title>Super Homepage</title>
-                    </head>
-                    <body>
-                        <div id="root">
-                            <h1>here</h1>
-                        </div>
-                    </body>
-                </>
-            );
-        };
+  const markup = renderToString(
+    <RemixServer context={remixContext} url={request.url} />
+  );
 
-        return new Response("<!DOCTYPE html>" + renderToString(comp()), {
-            status: responseStatusCode,
-            headers: responseHeaders,
-        });
-    } else {
-        responseHeaders.set("Content-Type", "application/json");
-
-        const markup = renderToString(
-            <RemixServer context={remixContext} url={request.url} />
-        );
-
-        return new Response("<!DOCTYPE html>" + markup, {
-            status: responseStatusCode,
-            headers: responseHeaders,
-        });
-    }
+  return new Response("<!DOCTYPE html>" + markup, {
+    status: responseStatusCode,
+    headers: responseHeaders,
+  });
 }
