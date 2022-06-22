@@ -1,4 +1,4 @@
-conste template = (
+const template = (
   <div>
     {/*%if state.isLoggedIn === true */}
     <p>Logged in</p>

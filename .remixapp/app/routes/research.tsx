@@ -1,19 +1,26 @@
-import { useLoaderData } from "@remix-run/react";
+export default () => {
+    const comp1 = () => {
+        return (
+            <h1>comp1</h1>
+        )
+    }
 
-const templates = {
-  login() {
-    return (
-      <h1>Login</h1>
-    );
-  },
-  logout() {
-    return (
-      <h1>Logout</h1>
-    );
-  }
-}
+     const comp2 = () => {
+        return (
+            <h1>comp2</h1>
+        )
+    }
 
-export async function loader({rquest, params}) {
-  console.log(templates.login.toString());
-  return {"template": "1"}
+    const components = [];
+
+    for (let i = 0; i < 3; i++) { components.push(
+      <h1>{i}</h1>
+    )}
+
+    return (
+      <>
+        <p>comps</p>
+        {components}
+      </>
+    )
 }
