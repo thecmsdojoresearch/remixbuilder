@@ -15,7 +15,22 @@ export default () => {
     }
   }
 
-  components['public'] = (
+  const jim = (props) => {
+    console.log(props);
+    return <h1>jim</h1>
+  }
+
+  components['if'] = (props) => {
+    if (props.condition === true) {
+      return props.children;
+    } else {
+      return <h1>not true if</h1>
+    }
+  }
+
+  components['random'] = () => (<h1>random</h1>)
+
+  components['public'] = () => (
     <>
       <html>
         <head>
@@ -42,11 +57,15 @@ export default () => {
     </>
   )
 
-  components['private'] = (
+  components['private'] = () => (
     <>
-      <h1>private portal</h1>
+      <h1>test...</h1>
+      <components.if condition = {true} >
+        <components.random />
+        <h1>private portal</h1>
+      </components.if>
     </>
   )
 
-  return components[key];
+  return components[key]();
 }
