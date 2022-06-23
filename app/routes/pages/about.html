@@ -1,0 +1,26 @@
+<script from="server">
+const data = {
+    a: 1,
+    b: 2
+  }
+</script>
+
+<script from="client">
+<component name="Dashboard">
+</component>
+</script>
+
+<html>
+  <head>
+    <title>About US</title>
+  </head>
+
+  <body>
+    <if>state.number === 1</if>
+    <div>
+      <h1>{data.a}</h1>
+      <Dashboard></Dashboard>
+    </div>
+    <endif></endif>
+  </body>
+</html>
