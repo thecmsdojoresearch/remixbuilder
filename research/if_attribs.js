@@ -3,19 +3,20 @@ const html = fs.readFileSync('./source.html').toString();
 const { XMLParser, XMLBuilder } = require('fast-xml-parser');
 const { traverse } = require('object-traversal');
 
-const parser = new XMLParser({
+const options = {
   ignoreAttributes: false,
-});
-const builder = new XMLBuilder({
-  ignoreAttributes: false,
-});
+  preserveOrder: false,
+  commentPropName: "#comment",
+};
+
+const parser = new XMLParser(options);
+const builder = new XMLBuilder(options);
 
 const tree = parser.parse(html);
 traverse(tree, ({ parent, key, value, meta }) => {
   if (key === '@_@if') {
-    console.log(parent);
-    delete parent[key];
+    parent['#comment'] = '%if'
   }
 });
 
-console.log(builder.build(tree));
+console.log(builder.build(tree).replace('><',"><\n"));

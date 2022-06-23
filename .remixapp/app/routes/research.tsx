@@ -1,26 +1,31 @@
+import { useLoaderData } from "@remix-run/react";
+
+export function loader({request, response}) {
+  return {a:5, b:2};
+}
+
 export default () => {
-    const comp1 = () => {
-        return (
-            <h1>comp1</h1>
-        )
+  const comps = [];
+
+  function $(element){
+    comps.push(element);
+  }
+
+  const data = useLoaderData();
+
+  if (data.a % 2 === 0) {
+    for (let i = 0; i <= 1; i++) {
+      $(<h1 key={i}>{i}</h1>)
     }
-
-     const comp2 = () => {
-        return (
-            <h1>comp2</h1>
-        )
+  } else {
+    for (let i = 0; i <= 0; i++) {
+      $(<h1 key={i}>{i}</h1>)
     }
+  }
 
-    const components = [];
-
-    for (let i = 0; i < 3; i++) { components.push(
-      <h1>{i}</h1>
-    )}
-
-    return (
-      <>
-        <p>comps</p>
-        {components}
-      </>
-    )
+  return (
+    <>
+      {comps}
+    </>
+  )
 }
