@@ -15,16 +15,15 @@ export default () => {
     }
   }
 
-  const jim = (props) => {
-    console.log(props);
-    return <h1>jim</h1>
+  const Jim = (props) => {
+    return <h2>jim</h2>
   }
 
   components['if'] = (props) => {
-    if (props.condition === true) {
+    if (props.condition) {
       return props.children;
     } else {
-      return <h1>not true if</h1>
+      return <></>
     }
   }
 
@@ -59,11 +58,10 @@ export default () => {
 
   components['private'] = () => (
     <>
+      <Jim></Jim>
       <h1>test...</h1>
-      <components.if condition = {true} >
-        <components.random />
-        <h1>private portal</h1>
-      </components.if>
+      <components.random />
+      <h1>private portal</h1>
     </>
   )
 
