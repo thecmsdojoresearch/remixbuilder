@@ -12,16 +12,23 @@ export default {
 </script>
 
 <script from="client">
-  data() {
-    return {
+export default {
+  data: {
+    counter: 0
+  },
+  methods: {
+    incrementCounter() {
+      this.counterSet(this.counter + 1);
     }
   },
-  method: {
+  mounted() {
+
   }
+}
 </script>
 
 <template>
-  <ul>
-    <li v-for="i=0; i<3; i++">{i}</li>
+  <ul v-if="counter > 0">
+    <li v-for="let i=0; i<3; i++">{{ i }}</li>
   </ul>
 </template>
