@@ -6,12 +6,13 @@ import { useState } from 'react';
 
 export default () => {
   const numbers = [1, 3, 5, 7];
-  const key = 'private';
+  const key = 'public';
   const components = {};
-  let [counter, counter$] = useState(0);
+  let [counter, counterSet] = useState(0);
   const page = {
     incrementCounter() {
-      counter$(counter + 4);
+      counter ++;
+      counterSet(counter);
     }
   }
 
@@ -44,7 +45,7 @@ export default () => {
             {numbers.map(number => <h1 key={number}>***{number}</h1>)}
           </div>
           <div>
-            <div>{counter}</div>
+            <div>...{counter}</div>
             <button 
               onClick={page.incrementCounter}>
               Click

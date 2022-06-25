@@ -1,34 +1,43 @@
+<!--
+  after each click event handler is called, we sync the entire state immediately
+-->
 <script from="server">
-export default {
-  loader() {
+const server = {
+  onGET() {
     return {
-      a: 1,
-      b: 2
     }
   },
-  action() {
-  }
+  onPOST() {
+  },
 }
 </script>
 
 <script from="client">
-export default {
-  data: {
-    counter: 0
-  },
-  methods: {
-    incrementCounter() {
-      this.counterSet(this.counter + 1);
+const client = {
+  state: {
+    counter: 0,
+    info: {
+      a: {
+        b: {
+          c: 1,
+          numbers: []
+        }
+      }
     }
   },
-  mounted() {
-
-  }
+  incrementCounter() {
+    this.state.counter++;
+  },
+  onMounted() {
+  },
 }
 </script>
 
 <template>
-  <ul v-if="counter > 0">
-    <li v-for="let i=0; i<3; i++">{{ i }}</li>
+  <div @if=""></div>
+  <ul @if="state.counter > 0">
+    <li @for="let i=0; i<3; i++">{i}</li>
   </ul>
+  <button @click="incrementCounter()">
+  </button>
 </template>
