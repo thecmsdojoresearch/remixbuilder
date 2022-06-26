@@ -13,31 +13,36 @@ const server = {
 </script>
 
 <script from="client">
-const client = {
+const page = {
   state: {
     counter: 0,
-    info: {
-      a: {
-        b: {
-          c: 1,
+    a: {
+      b: {
+        c: {
           numbers: []
         }
       }
     }
   },
-  incrementCounter() {
-    this.state.counter++;
+  incrementCounter(){
+    this.state.counter += 1;
+  },
+  decrementCounter() {
+    this.state.counter -= 1;
+  },
+  addNumber() {
+    this.state.a.b.c.numbers.push(5);
   },
   onMounted() {
+    console.log("mounted...");
   },
 }
 </script>
 
 <template>
-  <div @if=""></div>
-  <ul @if="state.counter > 0">
+  <ul @if="page.state.counter > 0">
     <li @for="let i=0; i<3; i++">{i}</li>
   </ul>
-  <button @click="incrementCounter()">
+  <button @click="page.incrementCounter()">
   </button>
 </template>

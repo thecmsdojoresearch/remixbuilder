@@ -22,7 +22,7 @@ export default () => {
       this.state.counter -= 1;
     },
     addNumber() {
-      this.state.a.b.c.numbers.push(3);
+      this.state.a.b.c.numbers.push(5);
     },
     onMounted() {
       console.log("mounted...");
