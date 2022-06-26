@@ -3,7 +3,7 @@ import {
   Scripts,
 } from "@remix-run/react";
 
-export default function Page() {
+export default () => {
   const page = {
     state: {
       counter: 0,
@@ -15,13 +15,11 @@ export default function Page() {
         }
       }
     },
-    action: {
-      incrementCounter(){
-        state.counter ++;
-      },
-      addNumber() {
-        state.a.b.c.numbers.push(1);
-      },
+    incrementCounter(){
+      this.state.counter += 2;
+    },
+    addNumber() {
+      this.state.a.b.c.numbers.push(3);
     },
     onMounted() {
       console.log("mounted...");
@@ -30,11 +28,11 @@ export default function Page() {
 
   let [state, setState] = useState(page.state);
 
+  page.state = state;
+
   const syncState = () => {
     setState({...state}); //need to set state
   }
-
-  const action = page.action;
 
   return (
     <>
@@ -42,10 +40,10 @@ export default function Page() {
         <head>
         </head>
         <body>
-          <h1>{state.counter}</h1>
-          <h1>{state.a.b.c.numbers}</h1>
-          <button onClick={() => {action.incrementCounter();syncState()}}>Click</button>
-          <button onClick={() => {action.addNumber(); syncState()}}>Add Number...</button>
+          <h1>{page.state.counter}......</h1>
+          <h4>{page.state.a.b.c.numbers}</h4>
+          <button onClick={() => {page.incrementCounter();syncState()}}>Click</button>
+          <button onClick={() => {page.addNumber(); syncState()}}>Add Number...</button>
           <Scripts />
         </body>
       </html>
