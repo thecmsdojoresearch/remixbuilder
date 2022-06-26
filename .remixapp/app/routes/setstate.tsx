@@ -3,26 +3,38 @@ import {
   Scripts,
 } from "@remix-run/react";
 
-export default () => {
-  let state = {
-    counter: 0
-  }
-
-  let [$state, setState] = useState(state);
-
-  const syncState = () => {
-    setState({...$state}); //need to set state
-  }
-
+export default function Page() {
   const page = {
-    incrementCounter(){
-      $state.counter ++;
+    state: {
+      counter: 0,
+      a: {
+        b: {
+          c: {
+            numbers: []
+          }
+        }
+      }
+    },
+    action: {
+      incrementCounter(){
+        state.counter ++;
+      },
+      addNumber() {
+        state.a.b.c.numbers.push(1);
+      },
+    },
+    onMounted() {
+      console.log("mounted...");
     }
   }
 
-  useEffect(() => {
-    syncState();
-  }, [$state]); //we must provide the state dependency to prevent the infinite mutation loop!!!
+  let [state, setState] = useState(page.state);
+
+  const syncState = () => {
+    setState({...state}); //need to set state
+  }
+
+  const action = page.action;
 
   return (
     <>
@@ -30,8 +42,10 @@ export default () => {
         <head>
         </head>
         <body>
-          <h1>{$state.counter}</h1>
-          <button onClick={page.incrementCounter}>Click</button>
+          <h1>{state.counter}</h1>
+          <h1>{state.a.b.c.numbers}</h1>
+          <button onClick={() => {action.incrementCounter();syncState()}}>Click</button>
+          <button onClick={() => {action.addNumber(); syncState()}}>Add Number...</button>
           <Scripts />
         </body>
       </html>
